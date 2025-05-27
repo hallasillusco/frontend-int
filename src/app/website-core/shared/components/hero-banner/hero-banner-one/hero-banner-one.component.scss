@@ -1,0 +1,16 @@
+.tp-slider-button-prev,
+.tp-slider-button-next {
+  width: 40px; 
+  height: 40px; 
+  border-radius: 10px; 
+  background-color: #0000006c; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .resp{
+    display: none; /* Esto muestra el botón en dispositivos móviles */
+  }
+}

@@ -1,0 +1,31 @@
+<form [formGroup]="form">
+    <div class="row">
+        <div class="col-md-4"  *ngIf="type.includes('usuario')" >
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Seleccionar Usuario</mat-label>
+              <mat-select formControlName="user_id">
+                <mat-option [value]="'0'" selected>Todos</mat-option>
+                <mat-option *ngFor="let item of usuarios" [value]="item.id">
+                  {{item.nombre_completo}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        <div [ngClass]="type.includes('usuario')?'col-md-4':'col-md-6'"  *ngIf="type.includes('fecha_inicio')" >
+            <mat-form-field class="example-full-width" appearance="outline"  >
+                <mat-label>Fecha Inicio</mat-label>
+                <input matInput formControlName="fecha_inicio" [matDatepicker]="picker">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div [ngClass]="type.includes('usuario')?'col-md-4':'col-md-6'" *ngIf="type.includes('fecha_inicio')" >
+            <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>Fecha Fin </mat-label>
+                <input matInput formControlName="fecha_fin" [matDatepicker]="picker1">
+                <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+    </div>
+</form>

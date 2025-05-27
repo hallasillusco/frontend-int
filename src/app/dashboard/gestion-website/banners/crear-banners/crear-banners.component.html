@@ -1,0 +1,60 @@
+<div class="modal-header editRowModal">
+	<h4 class="modal-title" id="modal-basic-title">
+		<div class="modal-header">
+			<!-- <img src='./assets/images/flaticon/agregar-usuario_1.png' alt="avatar"> -->
+			<div class="modal-about">
+				<div class="font-weight-bold p-t-0 font-17">
+					{{ title }}</div>
+			</div>
+		</div>
+	</h4>
+	<button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+		<span aria-hidden="true"><i class="material-icons">close</i></span>
+	</button>
+</div>
+<form class="register-form" [formGroup]="form" (ngSubmit)="register(form.value)">
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+				<mat-form-field class="example-full-width" appearance="outline">
+					<mat-label>Nombre del Banner</mat-label>
+					<input matInput formControlName="nombre" required>
+					<!-- <mat-icon matSuffix>person</mat-icon> -->
+					<mat-error *ngIf="form.get('nombre')!.hasError('required')">
+						Nombre es requerido
+					</mat-error>
+				</mat-form-field>
+				<mat-form-field class="example-full-width" appearance="outline">
+					<mat-label>Descripcion</mat-label>
+					<textarea matInput formControlName="descripcion" required></textarea>
+					<!-- <mat-icon matSuffix>person</mat-icon> -->
+					<mat-error *ngIf="form.get('descripcion')!.hasError('required')">
+						descripcion es requerida
+					</mat-error>
+				</mat-form-field>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                        <label for="nombre" class="form-label">Imagen</label>
+                        <app-file-upload formControlName="file" titulo="Subir Imagen"
+                        (foto)="agregarFoto($event)" ></app-file-upload>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2"> -->
+		<button class="btn-space" [disabled]="!form.valid || isLoading" mat-raised-button color="primary" type="submit">
+			<div class="spinner-container">
+				<mat-spinner diameter="20" *ngIf="isLoading"></mat-spinner>
+				<span class="spinner-text">Guardar</span>
+			</div>
+		</button>
+		<button type="button" color="warn" mat-raised-button data-dismiss="modal" (click)="modal.dismiss('Cross click')">
+			Cancelar
+		</button>
+		<!-- </div> -->
+	</div>
+	<!-- <pre style="font-size:15px">{{ form.value | json }}</pre> -->
+</form>
+

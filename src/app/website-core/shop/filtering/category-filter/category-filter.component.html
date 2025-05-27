@@ -1,0 +1,39 @@
+<div class="tp-shop-widget-content">
+  <div class="tp-shop-widget-categories">
+    <ul>
+      <li *ngFor="let category of categoryData; let i = index">
+        <a
+           (click)="showSubItem(i,category.id)"
+           [ngClass]="{
+            'cursor-pointer': true,
+            active:
+              activeQuery1 ==
+              category.id
+          }"
+         
+        >
+          {{ category.nombre }}
+          <span>{{ category.cantidad }}</span>
+        </a> 
+
+        <ul class="mt-3 ms-4 " >
+          @if (visibleIndex === i) {
+            <li *ngFor="let item of category?.sub_categorias" class="mt-1" >
+              <a (click)="handleCategoryRoute(item.id)" 
+              [ngClass]="{
+                'cursor-pointer': true,
+                active:
+                  activeQuery ==
+                  item.id
+              }"
+              >
+                  {{item.nombre}}
+              </a>
+            </li>
+          }
+        </ul>
+
+      </li>
+    </ul>
+  </div>
+</div>

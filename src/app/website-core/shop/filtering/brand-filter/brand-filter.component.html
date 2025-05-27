@@ -1,0 +1,16 @@
+<div class="tp-shop-widget-content">
+  <div
+    class="tp-shop-widget-brand-list d-flex align-items-center justify-content-between flex-wrap"
+  >
+    <div
+      *ngFor="let item of brandsData"
+      class="tp-shop-widget-brand-item"
+    >
+      <a (click)="handleBrandRoute(item.id)" class="cursor-pointer hover ">
+        <!-- <img *ngIf="item.logo" [src]="item.logo" alt="logo" /> -->
+        <span *ngIf="!item.logo"  style="font-size: 17px;" >{{ item.nombre }}</span>
+      </a>
+    </div>
+  </div>
+</div>
+  

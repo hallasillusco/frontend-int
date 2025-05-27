@@ -1,0 +1,227 @@
+<section class="content">
+  <div class="content-block">
+      <app-breadcrumb [title]="'Productos'" [items]="['Inicio']" [active_item]="'Crear Prodcutos'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2>
+              <strong>Crear</strong> Producto</h2>
+          </div>
+          <div class="body">
+            <form class="register-form m-4" [formGroup]="form" (ngSubmit)="register(form.value)">
+                <mat-tab-group>
+                  <mat-tab label="Detalle del Producto" >
+                      <div class="body">
+                        <div class="row mt-4">
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-6">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label>Unidad</mat-label>
+                              <mat-select matInput formControlName="unidad_id" required>
+                                <mat-option *ngFor="let unidad of unidades" [value]="unidad.id">
+                                    {{unidad.nombre}}
+                                </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="form.get('unidad_id')?.hasError('required')">
+                                Unidad requerida
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-6">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label> Marca</mat-label>
+                              <mat-select matInput formControlName="marca_id" required>
+                                <mat-option *ngFor="let marca of marcas" [value]="marca.id">
+                                  {{marca.nombre}}
+                                </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="form.get('marca_id')?.hasError('required')">
+                                Marca requerida
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-6">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label> Tipo</mat-label>
+                              <mat-select matInput formControlName="tipo_id" required>
+                                <mat-option *ngFor="let tipo of tipos" [value]="tipo.id">
+                                  {{tipo.nombre}}
+                                </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="form.get('tipo_id')?.hasError('required')">
+                                Tipo requerido
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-6">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label> Categoría</mat-label>
+                              <mat-select matInput formControlName="categoria_id" required>
+                                  @if (form.get('tipo_id')?.value!='') {
+                                    <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">
+                                      {{categoria.nombre}}
+                                    </mat-option>
+                                  }
+                              </mat-select>
+                              <mat-error *ngIf="form.get('categoria_id')?.hasError('required')">
+                                Categoría requerida
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-6">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label>Sub Categoría</mat-label>
+                              <mat-select matInput formControlName="sub_categoria_id" required>
+                                @if (form.get('categoria_id')?.value!='') {
+                                  <mat-option *ngFor="let item of subC" [value]="item.id">
+                                      {{item.nombre}}
+                                  </mat-option>
+          
+                                }
+                              </mat-select>
+                              <mat-error *ngIf="form.get('categoria_id')?.hasError('required')">
+                              Sub Categoría requerida
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label>Nombre</mat-label>
+                              <input matInput formControlName="nombre" required>
+                              <mat-error *ngIf="form.get('nombre')?.hasError('required')">
+                                Nombre requerido
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-3">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label>Código</mat-label>
+                              <input matInput formControlName="codigo" required>
+                              <mat-error *ngIf="form.get('codigo')?.hasError('required')">
+                                Código requerido
+                              </mat-error>
+                            </mat-form-field>
+                          </div>                          
+                          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-3">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label>Precio Unitario</mat-label>
+                              <input type="number" matInput formControlName="precio_unit" required>
+                              <mat-error *ngIf="form.get('precio_unit')?.hasError('required')">
+                                Precio Unitario requerido
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-3">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label>Descuento</mat-label>
+                              <input type="number" matInput formControlName="descuento">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 mb-3">
+                            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                              <mat-label>Precio con Descuento</mat-label>
+                              <input type="number" matInput formControlName="precio_desc" [value]="form.get('precio_unit')?.value-(form.get('precio_unit')?.value*form.get('descuento')?.value)/100" >
+                            </mat-form-field>
+                          </div>
+                        </div>
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                              <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                                <mat-label>Detalle </mat-label>
+                                <textarea matInput formControlName="detalle" cols="5" required></textarea>
+                                <mat-error *ngIf="form.get('detalle')?.hasError('required')">
+                                  Detalle es requerido
+                                </mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+          
+                              <mat-label>Descripción </mat-label>
+                              <ckeditor [editor]="Editor"  formControlName="descripcion" data="<p>Hello, world!</p>"></ckeditor>
+          
+                              <!-- <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+                                <textarea matInput formControlName="descripcion" cols="5" required></textarea>
+                                <mat-error *ngIf="form.get('descripcion')?.hasError('required')">
+                                  Descripción es requerido
+                                </mat-error>
+                              </mat-form-field> -->
+                            </div>
+                          </div>                        
+                      </div>
+                  </mat-tab>
+                  <mat-tab label="Detalle de Imagenes" >
+                     <div class="body">
+                      <div class="alert" style="background-color: rgb(224, 242, 248);" role="alert">
+                        <div>
+                            <h5 class="text-dark"><b>Recomendaciones</b></h5>
+                            <p class="text-dark"  >
+                              <b>Peso máximo de la imagen:</b> 400 KB. <br>
+                              <b>Dimensiones de la imagen:</b> El ancho debe ser de 670 px y la altura de 580 px.
+                            </p>
+                        </div>
+                    </div>
+                      <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                          <label for="nombre" class="form-label">Imagen de Portada</label>
+                          <app-file-upload formControlName="file" titulo="Subir Imagen"
+                          (foto)="agregarFoto($event)" ></app-file-upload>
+                        </div>
+                        <div class="col-md-12">
+                          <label for="categoria_id" class="form-label">Mis Imagenes</label>
+                          <div class="file-drop-area text-center">
+                            <a class="btn" mat-raised-button color="primary" >Adjuntar Imagenes</a>
+                            <br>
+                            <input class="file-input" type="file" multiple (change)="detectFiles($event)" accept="image/x-png,image/jpeg">
+                            <br/>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-12 col-lg-3	 col-xl-2" formArrayName="archivos"
+                          *ngFor="let archivo of archivos.controls; let i = index;">
+                            <div class="card mb-3" [formGroupName]="i">
+                              <button type="button" (click)="removePhoto(i)" class="btn btn-danger remove-btn">x</button>
+                              <div class="rEszjc d-flex justify-content-center p-2 " >
+                                <div class="bxp7vf bHOAdb" >
+                                  <img aria-hidden="true" role="presentation" jsname="q4uQmd" class=" " *ngIf="archivo.controls.extension.value !='image'"  src="https://fonts.gstatic.com/s/i/productlogos/drive_2020q4/v8/web-48dp/logo_drive_2020q4_color_1x_web_48dp.png" data-mime-type="application/pdf" data-iml="62474">
+                                  <img aria-hidden="true" role="presentation" jsname="q4uQmd" class=" " *ngIf="archivo.controls.extension.value =='image'"  src="{{archivo.controls.url.value}}" data-mime-type="image/x-png,image/jpeg,application/pdf,.xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" data-iml="62474">
+                                </div>
+                              </div>
+                              <div class="row d-flex justify-content-center">
+                                <div class="col-md-12">
+                                  <p class="text-center" style="font-size: 9px;" >{{archivo.controls.file.value.name}}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                     </div>
+                  </mat-tab>
+                  <mat-tab label="Detalle Colores del Producto " >
+                      <app-colores [colores]="colores" (sumarControl)="sumarControl()" (restarControl)="restarControl($event)" ></app-colores>
+                  </mat-tab>
+                </mat-tab-group>
+
+              <div class="row mt-4 ">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <div class="example-button-row">
+                    <button [disabled]="!form.valid || loading"  [class.auth-spinner]="loading" mat-raised-button color="primary" type="submit"
+                    >Guardar</button>
+                    <button type="button" color="warn" mat-raised-button tabindex="-1" (click)="cerrar()">Cancelar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>

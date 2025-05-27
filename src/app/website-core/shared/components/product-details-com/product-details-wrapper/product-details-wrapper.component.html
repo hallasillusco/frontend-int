@@ -1,0 +1,158 @@
+<div class="tp-product-details-wrapper has-sticky">
+  <div class="tp-product-details-category">
+    <span>{{product?.tipo.nombre}} - {{ product?.categoria?.nombre }} - {{ product?.sub_categoria?.nombre }} </span>
+  </div>
+  <h3 class="tp-product-details-title">{{ product?.nombre }}</h3>
+
+  <!-- inventory details -->
+  <div class="tp-product-details-inventory d-flex align-items-center mb-10">
+    <div class="tp-product-details-stock mb-10" *ngIf="product?.descuento !=null&&product?.descuento !=0">
+      <span>{{product?.descuento}}%</span>
+    </div>
+    <div class="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
+      <div class="tp-product-details-rating">
+        {{product?.marca?.nombre}}
+      </div>
+    </div>
+  </div>
+  <p>
+    {{ textMore ? product?.detalle : (product?.detalle?.substring(0, 100) + '...') }}
+    <span (click)="handleTextToggle()">{{ textMore ? 'Ver menos' : 'Ver mas' }}</span>
+  </p>
+
+  <!-- price -->
+  <div class="tp-product-details-price-wrapper mb-20">
+    <div *ngIf="product?.descuento > 0  && product?.descuento !=null ">
+      <span class="tp-product-details-price old-price">{{moneda}}{{ product?.precio_unit| number: '.2-2' }}</span>
+      <span class="tp-product-details-price new-price">
+        {{moneda}}{{ product.precio_desc }}
+      </span>
+    </div>
+    <span *ngIf="product?.descuento <= 0  && product?.descuento ==null " class="tp-product-details-price">
+      {{moneda}}{{ product?.precio_unit| number:'.2-2' }}
+    </span>
+  </div>
+
+  <!-- variations -->
+  <!-- <div *ngIf="handleIsColorVariant(product)" class="tp-product-details-variation">
+    <div class="tp-product-details-variation-item">
+      <h4 class="tp-product-details-variation-title">Color:</h4>
+      <div class="tp-product-details-variation-list">
+        <button
+          *ngFor="let item of product.imageURLs; let i = index"
+          [class.active]="item.img === productService.activeImg"
+          (click)="productService.handleImageActive(item.img)"
+          type="button"
+          class="color tp-color-variation-btn"
+          style="margin-right: 5px"
+        >
+          <span :data-bg-color="item.color?.clrCode" [style.backgroundColor]="item.color?.clrCode"></span>
+          <span class="tp-color-variation-tootltip">{{ item.color?.name }}</span>
+        </button>
+      </div>
+    </div>
+  </div> -->
+    <div *ngIf="product?.colores" class="tp-product-details-variation">
+    <div class="tp-product-details-variation-item">
+      <h4 class="tp-product-details-variation-title">Color:</h4>
+      <div class="tp-product-details-variation-list">
+        <button
+          *ngFor="let item of product?.colores; let i = index"
+          (click)="handleImageActive(item.id)"
+          [class.active]="item.id === activeImg"
+          type="button"
+          class="color tp-color-variation-btn"
+          style="margin-right: 5px"
+        >
+          <span :data-bg-color="item.codigo" [style.backgroundColor]="item.codigo"></span>
+          <span class="tp-color-variation-tootltip">{{ item.nombre }}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- product countdown start -->
+  <!-- <div *ngIf="product?.offerDate?.endDate">
+    <div class="tp-product-details-countdown d-flex align-items-center justify-content-between flex-wrap mt-25 mb-25">
+    <h4 class="tp-product-details-countdown-title">
+      <i class="fa-solid fa-fire-flame-curved"></i> Flash Sale end in:
+    </h4>
+    <div
+      class="tp-product-details-countdown-time"
+    >
+      <app-countdown-timer [date]="product.offerDate?.endDate!"></app-countdown-timer>
+    </div>
+  </div>
+  </div> -->
+  <!-- product countdown end -->
+
+  <!-- actions -->
+  <div class="tp-product-details-action-wrapper">
+    <h3 class="tp-product-details-action-title">Cantidad</h3>
+    <div class="tp-product-details-action-item-wrapper d-flex align-items-center">
+       <div class="tp-product-details-quantity">
+          <div class="tp-product-quantity mb-15 mr-15">
+             <span (click)="cartService.decrement()" class="tp-cart-minus">
+                <svg width="11" height="2" viewBox="0 0 11 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <path d="M1 1H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+             </span>
+             <input class="tp-cart-input" type="text" [value]="cartService.orderQuantity" disabled>
+             <span (click)="cartService.increment()" class="tp-cart-plus">
+                <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                   <path d="M1 6H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                   <path d="M5.5 10.5V1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+             </span>
+          </div>
+       </div>
+       <div class="tp-product-details-add-to-cart mb-15 w-100">
+          <button (click)="cartService.addCartProduct(product)" class="tp-product-details-add-to-cart-btn w-100">Agregar al carro</button>
+       </div>
+    </div>
+    <a [routerLink]="['/website/checkout']" class="tp-product-details-buy-now-btn w-100 text-center">Comprar ahora</a>
+ </div>
+
+ <div *ngIf="isShowBottom">
+   <!-- <div class="tp-product-details-action-sm">
+     <div class="tp-product-details-query">
+       <div class="tp-product-details-query-item d-flex align-items-center">
+           <span>SKU:  </span>
+           <p>{{product.sku}}</p>
+       </div>
+       <div class="tp-product-details-query-item d-flex align-items-center">
+           <span>Category:  </span>
+           <p>{{product.parent}}</p>
+       </div>
+       <div class="tp-product-details-query-item d-flex align-items-center">
+           <span>Tag: </span>
+           <p>Android</p>
+       </div>
+     </div>
+   </div> -->
+
+   <div>
+     <div class="tp-product-details-query">
+     </div>
+     <div class="tp-product-details-social">
+       <span>Comparte:</span>
+       <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+       <a href="#"><i class="fa-brands fa-twitter"></i></a>
+       <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+       <a href="#"><i class="fa-brands fa-vimeo-v"></i></a>
+     </div>
+     <div class="tp-product-details-msg mb-15">
+       <ul>
+         <li>Productos Seguros</li>
+         <li>Delivery a nivel nacional</li>
+         <li>Retorno de productos en mal estado</li>
+       </ul>
+     </div>
+     <div class="tp-product-details-payment d-flex align-items-center flex-wrap justify-content-between">
+       <p>Garantia <br> & Seguridad</p>
+       <img src="/assets/website/img/product/icons/payment-option1.png" alt="">
+     </div>
+   </div>
+ </div>
+
+</div>

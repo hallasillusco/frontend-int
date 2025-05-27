@@ -1,0 +1,34 @@
+<div class="tp-shop-widget-content">
+  <div class="tp-shop-widget-product">
+      <div *ngFor="let item of topRatedProducts" class="tp-shop-widget-product-item d-flex align-items-center">
+        <div class="tp-shop-widget-product-thumb">
+            <a [routerLink]="['/shop/shop-details', item.id]">
+              <img [src]="url+item.img_url" alt="product-img">
+            </a>
+            <!-- <div class="tp-product-badge" *ngIf="item.descuento">
+              <span class="product-hot">-{{item.descuento}}%</span>
+            </div> -->
+        </div>
+
+        <div class="tp-shop-widget-product-content">
+            <div class="tp-shop-widget-product-rating-wrapper d-flex align-items-center">
+              <div class="tp-shop-widget-product-rating">
+                  {{item?.marca?.nombre}}
+              </div>
+            </div>
+            <h4 class="tp-shop-widget-product-title">
+              <a [routerLink]="['/shop/shop-details', item.id]">{{item.nombre}}</a>
+            </h4>
+            <div class="tp-shop-widget-product-price-wrapper">
+              <ng-container *ngIf="item?.descuento > 0 && item?.descuento != null ; else noDiscount">
+                <!-- <span class="tp-shop-widget-product-price old-price ">${{item.precio_unit|number:'.2-2'}}</span> -->
+                <span class="tp-shop-widget-product-price new-price ">{{moneda}}{{item.precio_desc|number:'.2-2'}}</span>
+              </ng-container>
+              <ng-template #noDiscount>
+                <span class="tp-shop-widget-product-price new-price ">{{moneda}}{{item.precio_unit|number:'.2-2'}}</span>
+              </ng-template>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

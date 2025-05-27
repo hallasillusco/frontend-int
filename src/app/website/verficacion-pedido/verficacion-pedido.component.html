@@ -1,0 +1,110 @@
+<app-breadcrumb-one title="VERIFICAR EL ESTADO DE TU PEDIDO" subtitle="Verificacion de Pedido"></app-breadcrumb-one>
+
+<section class="tp-cart-area pb-120" style="background-color: #fcfbfb;" >
+  <div class="container row  ">
+    <!-- <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)"> -->
+        <div class="tp-login-input-wrapper col-md-8 row  ">
+            <div class="col-md-6 mt-2">
+                <div class="tp-login-input-box ">
+                    <div class="tp-login-input">
+                      <input type="text" placeholder="Nro. Pedido" [(ngModel)]="numero">
+                    </div>
+                    <div class="tp-login-input-title">
+                      <label for="email">Numero Pedido</label>
+                    </div>
+                </div>
+            </div>
+          <div class="col-md-6 mt-2 ">
+            <div class="tp-login-input-box">
+                <div class="tp-login-input">
+                  <input type="text" placeholder="Telefono" [(ngModel)]="telefono">
+                </div>
+                <div class="tp-login-input-title">
+                  <label for="email">Telefono</label>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="tp-login-bottom col-md-4  mt-2">
+          <button type="button" (click)="busquedaPedido()" class="tp-login-btn w-100">Buscar</button>
+        </div>
+      <!-- </form> -->
+     <ng-container *ngIf="pedido"  >
+        <div class="col-md-12" >
+            <div class="card">
+                <div class="body">
+                    <div class="row">
+                        <h5>PEDIDO NRO. {{pedido?.txt_nro}}</h5>
+                        <div class="col-md-4">
+                            <h6>Información del Cliente</h6>
+                            <p>
+                                {{pedido?.cliente?.nombre_completo}} <br>
+                                {{pedido?.cliente?.celular}} <br>
+                                {{pedido?.cliente?.email}} <br>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      </div>
+      <div class="col-md-12">
+        <h5 class="" >Información del producto</h5>
+
+        <div class="tp-cart-list mb-25 mr-30">
+            <table>
+              <thead>
+                <tr>
+                  <th class="tp-cart-header-product">Producto</th>
+                  <th class="tp-cart-header-price">Precio</th>
+                  <th class="tp-cart-header-quantity">Cantidad</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of pedido?.detalle">
+                  <!-- title -->
+                  <td class="tp-cart-title">
+                    <a>{{ item.producto.nombre }}</a>
+                  </td>
+                  <!-- price -->
+                  <td class="tp-cart-price" *ngIf="item.producto?.descuento == 0 && item.producto?.descuento == null; else noDiscount" ><span>Bs.{{ item.producto.precio_desc }}</span></td>
+                  <ng-template #noDiscount>
+                    <td class="tp-cart-price" #noDiscount ><span>Bs. {{ item.producto.precio_unit| number:'.2-2' }}</span></td>
+                    
+                  </ng-template>
+                  
+                  <!-- quantity -->
+                  <td class="tp-cart-quantity">
+                    {{item.cantidad}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="guardarComprobante(form.value)"  >
+        <div class="col-md-12 row ">
+        <h5>Imagen del comprobante de pago</h5>
+        @if (pedido?.comprobante!=null){   
+            <div class="col-md-6">
+                <img [src]="url+pedido?.comprobante?.img_url" alt="">
+            </div>     
+        }
+        @else {  
+            <div class="col-md-12 mb-3">
+                <app-file-upload formControlName="file" titulo="Subir Imagen" (foto)="agregarFoto($event)" ></app-file-upload>
+            </div>    
+            <div class="col-md-12">
+                <div class="tp-login-bottom">
+                    <button type="submit" class="tp-login-btn w-100">Registrar</button>
+                  </div>
+            </div>            
+        }
+
+        </div>
+      </form>
+     </ng-container>
+     
+  </div>
+</section>

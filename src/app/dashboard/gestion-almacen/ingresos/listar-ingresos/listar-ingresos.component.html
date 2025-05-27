@@ -1,0 +1,99 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Ingresos'" [items]="['Inicio']" [active_item]="'Ingresos'">
+        </app-breadcrumb>
+      </div>
+  
+      <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="header">
+              <h2>
+                <strong>Lista de </strong> Ingresos</h2>
+            </div>
+            <div class="body">
+              <app-filters (dataLista)="listaIngresos($event)" [type]="['fecha_inicio','fecha_fin']"  ></app-filters>
+              <div class="materialTableHeader">
+                <div class="left">
+                  <ul class="header-buttons-left ms-0">
+                    <li class="tbl-search-box">
+                      <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                      <input placeholder="Buscador"  (keyup)="applyFilters($event)" type="text" #filter class="browser-default search-field"
+                        aria-label="Search box">
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="right">
+                    <ul class="tbl-export-btn">
+                      <li class="tbl-header-btn">
+                        <div class="m-l-10" matTooltip="ADD">
+                          <button mat-raised-button color="primary" [routerLink]="'/dashboard/ingresos/crear'" >
+                            <mat-icon class="col-white">add</mat-icon>
+                            Nuevo Registro
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="body table-responsive">
+                    <table  class="d-flex justify-content-center " mat-table [dataSource]="paginate" class="w-100">
+                      <ng-container matColumnDef="Nº">
+                        <th mat-header-cell *matHeaderCellDef> Nº </th>
+                        <td mat-cell *matCellDef="let i = index">
+                          {{this.paginator.pageIndex == 0 ? i + 1 : 1 + i + this.paginator.pageIndex * this.paginator.pageSize}}
+                        </td>
+                      </ng-container>
+                      <ng-container matColumnDef="Nro. Factura">
+                        <th mat-header-cell *matHeaderCellDef> Nro. Comprobante </th>
+                        <td mat-cell *matCellDef="let element">{{element.nro}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="Fecha Ingreso">
+                        <th mat-header-cell *matHeaderCellDef> Fecha Ingreso </th>
+                        <td mat-cell *matCellDef="let element" class="text-uppercase" > {{element.fecha_ingreso| date:'dd/MM/yyyy'}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="Proveedor">
+                        <th mat-header-cell *matHeaderCellDef> Proveedor </th>
+                        <td mat-cell *matCellDef="let element" class="text-uppercase" > {{element.proveedor.razon_social}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="Usuario">
+                        <th mat-header-cell *matHeaderCellDef> Usuario </th>
+                        <td mat-cell *matCellDef="let element" class="text-uppercase" > {{element.usuario.nombre_completo}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="Observacion">
+                        <th mat-header-cell *matHeaderCellDef> Observacion </th>
+                        <td mat-cell *matCellDef="let element" class="text-uppercase" > {{element.observacion}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="Total">
+                        <th mat-header-cell *matHeaderCellDef> Total </th>
+                        <td mat-cell *matCellDef="let element"> {{element.total}} </td>
+                      </ng-container>
+                      <ng-container matColumnDef="Acciones">
+                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                        <td mat-cell *matCellDef="let element">
+                          <button mat-icon-button  style="color: rgb(14, 174, 214);"  class="me-2" (click)="mostrarPdf(element.id)"  >
+                            <mat-icon matSuffix>print</mat-icon>
+                          </button>
+                          <button mat-icon-button color="primary" class="me-2" [routerLink]="['/dashboard/ingresos/editar/',element.id]" routerLinkActive="router-link-active"  >
+                            <mat-icon matSuffix>edit</mat-icon>
+                          </button>
+                          <button mat-icon-button color="warn" class="me-2" (click)="eliminar(element.id)" >
+                            <mat-icon matSuffix>delete</mat-icon>
+                          </button>
+                        </td>
+                      </ng-container>
+                      <tr mat-header-row *matHeaderRowDef="nombreColumnas"></tr>
+                      <tr mat-row *matRowDef="let row; columns: nombreColumnas;"></tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[20, 10, 5]" showFirstLastButtons></mat-paginator>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+   </section>
+  

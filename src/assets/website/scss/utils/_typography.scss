@@ -1,0 +1,32 @@
+
+// font url
+
+// $font-url: 'https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Jost:wght@300;400;500;600;700&family=Oregano&family=Roboto:wght@300;400;500;700;900&display=swap';
+$font-url: "https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&display=swap";
+
+// font family
+$font-family: (
+    'ff': (
+        'body': "'Bai Jamjuree ', sans-serif",
+        'heading': "'Bai Jamjuree', sans-serif",
+        'p': "'Bai Jamjuree', sans-serif",
+        'a': "'Bai Jamjuree', sans-serif",
+        'jost': "'Bai Jamjuree', sans-serif",
+        'fontawesome': '"Font Awesome 6 Pro"',
+        'roboto': "'Bai Jamjuree', sans-serif",
+        'oregano': "'Bai Jamjuree', cursive",
+        'charm': "'Bai Jamjuree', cursive",
+    )
+);
+
+
+
+// font size
+$font-size: (
+    'fz': (
+        'body': 14px,
+        'p': 14px,
+    )
+);
+
+

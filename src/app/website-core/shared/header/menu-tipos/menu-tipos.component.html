@@ -1,0 +1,37 @@
+<ul>
+    <li>
+        <a>MARCAS</a>
+        <ul class="tp-submenu">
+          <li *ngFor="let item of marcas; let i = index">
+            <a (click)="handleSearchSubmitMarcas(item.id)" >{{ item.nombre }}</a>
+          </li>
+        </ul>
+    </li>
+    <li class="" *ngFor="let item of tipos; let i = index" [ngClass]="{'has-dropdown': false, 'has-dropdown has-mega-menu': true}">
+      <a>{{ item.nombre }}</a>
+  
+      <div *ngIf="item.categorias" class="shop-mega-menu tp-submenu tp-mega-menu">
+        <div class="row d-flex justiify-content-center ">
+          <div *ngFor="let shop_m of item.categorias; let i = index" class="col-lg-3">
+            <div class="shop-mega-menu-list">
+              <a (click)="handleSearchSubmit(shop_m.id,'')" class="shop-mega-menu-title"><b>{{ shop_m.nombre }}</b></a>
+              <ul>
+                <li *ngFor="let shop_sm of shop_m.sub_categorias; let i = index">
+                  <a (click)="handleSearchSubmit('',shop_sm.id)">{{ shop_sm.nombre }}</a>
+                </li>
+              </ul>
+            </div>  
+          </div>
+          <!-- <div class="col-lg-3">
+            <div class="shop-mega-menu-img">
+              <img src="/assets/website/img/menu/product/menu-product-img-2.jpg" alt="" />
+              <div class="shop-mega-menu-btn">
+                <a routerLink="/shop?category=headphones" class="tp-menu-showcase-btn tp-menu-showcase-btn-2">Headphones</a>
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </li>
+  </ul>
+  

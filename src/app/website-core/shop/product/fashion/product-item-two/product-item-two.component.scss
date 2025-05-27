@@ -1,0 +1,16 @@
+// @use '../../../../../../assets/website/scss/utils' as *;
+
+.tp-product-title-2 a {
+    font-size: 17px !important ;
+    color: #000 ;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.tp-product-tag-2 a:hover,
+.tp-product-title-2 a:hover {
+    color: #821F40 ;
+}
+.tp-product-tag-2 a::after {
+    background-color: var(--tp-theme-primary);
+}

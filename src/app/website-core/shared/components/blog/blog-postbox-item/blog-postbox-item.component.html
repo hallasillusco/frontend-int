@@ -1,0 +1,21 @@
+<article class="tp-postbox-item format-image mb-50 transition-3">
+  <div
+    class="tp-postbox-thumb tp-postbox-audio w-img p-relative"
+  >
+  <iframe
+      [src]="sanitizer.bypassSecurityTrustResourceUrl(blog.link)"
+      allow="autoplay"
+      referrerpolicy="strict-origin-when-cross-origin"
+    ></iframe>
+    <!-- <iframe width="1038" height="584" src="https://www.youtube.com/embed/qmM2xWMc0KM" title="[PLAYLIST] 너무 신나는 팝송이라 텐션 책임 못집니다.." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+  <!-- <iframe width="1280" height="536" src="{{blog.link}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe> -->
+  </div>
+  <div class="tp-postbox-content">
+    <div class="tp-postbox-meta">
+      <span> <i class="far fa-calendar-check"></i> {{ blog.created_at| date }} </span>
+    </div>
+    <h3 class="tp-postbox-title">
+      <a>{{ blog.nombre }}</a>
+    </h3>
+  </div>
+</article>

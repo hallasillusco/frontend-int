@@ -1,0 +1,55 @@
+<section class="tp-product-area pb-90 mt-5 ">
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="tp-section-title-wrapper-2 text-center mb-35">
+          <span class="tp-section-title-pre-2"> Nuestros Productos </span>
+          <h3 class="tp-section-title-2">Productos destacados</h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="tp-product-tab-2 tp-tab mb-50 text-center">
+          <nav>
+            <div class="nav nav-tabs justify-content-center" role="tablist">
+              <button
+              class="nav-link"
+              [class.active]="activeTab === 'VER TODO'"
+              (click)="handleActiveTab('VER TODO')"
+            >
+              VER TODO
+              <span class="tp-product-tab-tooltip">
+                {{ allProducts.length }}
+              </span>
+            </button>
+              <button
+                *ngFor="let tab of tabs; let i = index"
+                class="nav-link"
+                [class.active]="activeTab === tab.id"
+                (click)="handleActiveTab(tab.id)"
+              >
+                {{ tab.nombre }}
+                <span class="tp-product-tab-tooltip">
+                  {{ tab.cantidad }}
+                </span>
+              </button>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="row">
+          <div
+            *ngFor="let item of allProducts"
+            class="col-xl-3 col-lg-4 col-md-6 col-sm-6"
+          >
+            <app-product-item-two [product]="item"></app-product-item-two>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

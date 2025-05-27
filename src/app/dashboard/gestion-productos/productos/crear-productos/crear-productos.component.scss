@@ -1,0 +1,152 @@
+:host ::ng-deep .ck-editor__editable_inline {
+    border-color: black;
+    min-height: 300px; }
+  
+  
+    textarea {
+        width: 100%;
+        height: 150px;
+        padding: 12px 20px;
+        box-sizing: border-box;
+        border: 2px solid #ccc;
+        border-radius: 4px;
+        background-color: #f8f8f8;
+        font-size: 16px;
+        resize: none;
+      }
+  
+      .file-drop-area {
+        border: 1px dashed #7c7db3;
+        border-radius: 3px;
+        position: relative;
+        max-width: 100%;
+        margin-top: 5px;
+        padding: 26px 20px 30px;
+        transition: 0.2s;
+      }
+  
+      .file-input {
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
+        opacity: 0;
+      }
+      .file-msg {
+        display: inline-block;
+        margin-left: 5px;
+        font-size: 12px;
+        font-weight: 500;
+        color: #5b5bff;
+      }
+      .QRiHXd {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+      }
+  
+      .Aopndd {
+        background-color: #fff;
+        border: 0.0625rem solid #dadce0;
+        border-radius: 0.5rem;
+        overflow: hidden;
+      }
+  
+      .r0VQac, .Yzgtqe, .M4LFnf {
+        padding-right: 0.5rem;
+      }
+  
+      .Yzgtqe {
+        position: relative;
+        overflow: visible;
+      }
+  
+      .r0VQac .F1bQqd, .r0VQac .vwNuXe, .Yzgtqe .F1bQqd, .Yzgtqe .vwNuXe, .luto0c .F1bQqd, .luto0c .vwNuXe {
+        box-flex: 1;
+        flex-grow: 1;
+        overflow: hidden;
+      }
+  
+  
+      .r0VQac .bHOAdb, .Yzgtqe .bHOAdb, .luto0c .bHOAdb, .ZgfM9>* {
+        margin-right: 1rem;
+      }
+      .Yzgtqe .bHOAdb {
+        overflow: hidden;
+        border-radius: 0.4375rem 0 0 0.4375rem;
+      }
+      .bHOAdb {
+        height: 4.375rem;
+        overflow: hidden;
+        width: 6.5625rem;
+      }
+      .bHOAdb {
+        flex-shrink: 0;
+        position: relative;
+      }
+      .Niache {
+        border-right: 0.0625rem solid #e0e0e0;
+      }
+      .bxp7vf {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+  
+      .bHOAdb img, .bHOAdb .mXQw7d {
+        box-sizing: border-box;
+        max-height: 100%;
+        max-width: 100%;
+      }
+  
+      img {
+        border: none;
+      }
+  
+      .MM30Lb {
+        overflow: hidden;
+      }
+      .QDKOcc {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+  
+      .A6dC2c, .saYe1e {
+        letter-spacing: .00625em;
+        font-family: "Google Sans",Roboto,Arial,sans-serif;
+        font-size: 1rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        color: #3c4043;
+      }
+  
+      .r0VQac .F1bQqd, .r0VQac .vwNuXe, .Yzgtqe .F1bQqd, .Yzgtqe .vwNuXe, .luto0c .F1bQqd, .luto0c .vwNuXe {
+        box-flex: 1;
+        flex-grow: 1;
+        overflow: hidden;
+      }
+  
+      .JkIgWb {
+        text-decoration: none;
+        outline: none;
+      }
+      .QRiHXd {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+      }
+  
+      input{
+        font-size: 14px!important;
+    }
+    button{
+        font-size: 14px!important;
+    }
+    
+    mat-label{
+        font-size: 14px!important;
+    
+    }

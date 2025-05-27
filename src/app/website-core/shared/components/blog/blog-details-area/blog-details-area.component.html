@@ -1,0 +1,75 @@
+ <!-- blog details area start -->
+ <section class="tp-postbox-details-area pb-120 pt-95">
+  <div class="container">
+     <div class="row">
+        <div class="col-xl-9">
+           <div class="tp-postbox-details-top">
+              <div class="tp-postbox-details-category">
+                 <span>
+                    <a href="#" class="text-capitalize">{{blog?.tipo_blog_id==1?'Blog':'Evento'}}</a>
+                 </span>
+              </div>
+              <h3 class="tp-postbox-details-title">{{blog?.nombre}}</h3>
+              <div class="tp-postbox-details-meta mb-50">
+                 <span>
+                    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                       <path d="M15 8.5C15 12.364 11.864 15.5 8 15.5C4.136 15.5 1 12.364 1 8.5C1 4.636 4.136 1.5 8 1.5C11.864 1.5 15 4.636 15 8.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                       <path d="M10.5972 10.7259L8.42721 9.43093C8.04921 9.20693 7.74121 8.66793 7.74121 8.22693V5.35693" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    {{ blog?.created_at|date}}
+                 </span>
+              </div>
+           </div>
+        </div>
+        <div class="col-xl-12">
+           <div class="tp-postbox-details-thumb">
+              <img [src]="url+blog.img_url" alt="">
+           </div>
+        </div>
+     </div>
+     <div class="row">
+        <div class="col-xl-9 col-lg-8">
+           <div class="tp-postbox-details-main-wrapper">
+              <div class="tp-postbox-details-content">
+                  <div [innerHTML]="createTrustedHtml(blog?.descripcion)"></div>                 
+                 
+                  <!-- postbox-details-navigation start -->
+               
+                  <!-- postbox-details-navigation end -->
+
+                  <!-- postbox details author start-->
+                  <!-- <div class="tp-postbox-details-author d-sm-flex align-items-start" data-bg-color="#F4F7F9">
+                     <div class="tp-postbox-details-author-thumb">
+                        <a href="#">
+                           <img src="/assets/img/users/user-11.jpg" alt="">
+                        </a>
+                     </div>
+                     <div class="tp-postbox-details-author-content">
+                        <span>Written by</span>
+                        <h5 class="tp-postbox-details-author-title">
+                           <a href="#">Theodore Handle</a>
+                        </h5>
+                        <p>By defining and following internal and external processes, your team will have clarity on resources to attract and retain customers for your business.</p>
+
+                        <div class="tp-postbox-details-author-social">
+                           <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                           <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                           <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                           <a href="#"><i class="fa-brands fa-vimeo-v"></i></a>
+                        </div>
+                     </div>
+                  </div> -->
+                  <!-- postbox details author end-->
+
+              </div>
+           </div>
+        </div>
+        <div class="col-xl-3 col-lg-4">
+         <!-- blog sidebar start -->
+         <app-blog-sidebar [blogs]="blogs" ></app-blog-sidebar>
+         <!-- blog sidebar end -->
+        </div>
+     </div>
+  </div>
+</section>
+<!-- blog details area end -->

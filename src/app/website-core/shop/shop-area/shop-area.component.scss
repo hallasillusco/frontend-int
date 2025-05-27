@@ -1,0 +1,14 @@
+.tp-shop-top-filter .tp-filter-btn {
+    display: none; /* Esto oculta el botón por defecto */
+  }
+
+  @media (max-width: 768px) {
+    .tp-shop-top-filter .tp-filter-btn {
+      display: block; /* Esto muestra el botón en dispositivos móviles */
+    }
+
+    .resp{
+        display: none;
+    }
+
+  }

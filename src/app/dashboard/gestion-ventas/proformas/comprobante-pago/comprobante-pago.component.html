@@ -1,0 +1,77 @@
+<div class="addContainer">
+    <div class="modalHeader">
+      <div class="editRowModal">
+        <div class="modalHeader clearfix">
+            <div class="modal-about">
+              Comprobante de Pago
+            </div>
+          </div>
+        </div>
+        <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div mat-dialog-content>
+        <form class="register-form m-4" [formGroup]="form" (ngSubmit)="submit(form.value)" >
+          
+          <div class="row">
+            <div class="col-md-12">
+                <h5>Pedido Nro. {{proforma?.txt_nro}}</h5>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Informacion del cliente</h5>
+                        <p>
+                            {{proforma?.cliente?.nombre_completo }} <br>
+                            {{proforma?.cliente?.celular }} <br>
+                            {{proforma?.cliente?.email }} <br>
+                            {{proforma?.cliente?.direccion }} <br>
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Metodo de Pago</h5>
+                        <p>
+                            {{proforma?.tipo_pago==2?'Pago con QR':'Transferencia Bancaria'}}
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <h5>Monto Total</h5>
+                        <p>
+                            Bs.{{proforma?.total|number:'.2-2'}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 ">
+                <div class="row">
+                    <h5>Comprobante de Pago</h5>
+                    <div class="col-md-6">
+                        <img [src]="url+proforma?.comprobante?.img_url" class="img-fluid" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 mt-3">
+                <h5>Verificación de Pago</h5>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Monto</mat-label>
+                    <input matInput formControlName="monto" required>
+                    <!-- <mat-icon matSuffix>person</mat-icon> -->
+                    @if (form.get('monto')?.hasError('required')) {
+                        <mat-error>
+                          Monto es requerido
+                        </mat-error>
+                    }
+                  </mat-form-field>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div class="example-button-row">
+                <button  type="submit" [disabled]="!form.valid || loading"  [class.auth-spinner]="loading"   mat-raised-button color="primary" 
+                >Guardar</button>
+                <button type="button"  mat-raised-button color="warn" (click)="close()" tabindex="-1">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+  </div>

@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+    <div class="tp-login-input-wrapper">
+      <div class="tp-login-input-box">
+          <div class="tp-login-input">
+            <input id="email" type="email" placeholder="artstudio@mail.com" formControlName="email">
+          </div>
+          <div class="tp-login-input-title">
+            <label for="email">Email</label>
+          </div>
+        <span
+          *ngIf="(form.get('email')?.hasError('required') && form.get('email')?.touched) || (form.get('email')?.hasError('email') && form.get('email')?.dirty) || (formSubmitted && !form.get('email')?.value)"
+          class="text-danger"
+        >
+        El email es obligatorio y debe ser una dirección de correo válida
+    </span>
+      </div>
+      <div class="tp-login-input-box">
+        <div class="tp-login-input">
+          <input id="email" type="text" placeholder="8990809" formControlName="nit">
+        </div>
+        <div class="tp-login-input-title">
+          <label for="email">Nit</label>
+        </div>
+      <span
+        *ngIf="(form.get('nit')?.hasError('required') && form.get('nit')?.touched) && (form.get('nit')?.dirty) || (formSubmitted && !form.get('nit')?.value)"
+        class="text-danger"
+      >
+      El NIT es requerido
+      </span>
+    </div>
+    </div>
+    <div class="tp-login-bottom">
+      <button type="submit" class="tp-login-btn w-100">Buscar</button>
+    </div>
+  </form>
+  

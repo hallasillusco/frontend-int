@@ -1,0 +1,137 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Proformas'" [items]="['Inicio']" [active_item]="'Proformas'"></app-breadcrumb>
+    </div>
+
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="header">
+            <h2>
+              <ng-container *ngIf="proforma_id; else crearNuevo">
+                <strong>Editar</strong> Registro
+              </ng-container>
+              <ng-template #crearNuevo>
+                <strong>Crear</strong> Nuevo Registro
+              </ng-template>
+            </h2>
+          </div>
+          <div class="body">
+            <form action="" [formGroup]="form" (ngSubmit)="guardar(form.value)">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Clientes</mat-label>
+                    <mat-select formControlName="cliente_id">
+                      <mat-option *ngFor="let item of clientes" [value]="item.id">{{item.nombre_completo}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <a (click)="agregarCliente()" style="cursor: pointer;"  class="d-flex align-items-center justify-content-end " > <mat-icon class="me-2" >person_add</mat-icon> Agregar nuevo cliente</a>
+
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Fecha Registro</mat-label>
+                    <input matInput type="date" formControlName="fecha_registro" [matDatepicker]="picker">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="mt-4 mb-2">
+                <div class="row">
+                  <div class="col-md-11">
+                    <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Productos</mat-label>
+                      <mat-select formControlName="lote_id">
+                        <mat-option *ngFor="let item of lotes" [value]="item">{{item.txt_detalle}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-1">
+                    <button mat-icon-button type="button" color="primary"  matTooltip="Añadir compra de productos"  (click)="sumarUno(form.value )" >
+                        <mat-icon>add_shopping_cart</mat-icon>
+                    </button>
+                </div>                </div>
+
+                <div class="table-responsive">
+                  <table class="table table-borderless">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Stock</th>
+                        <th scope="col">Precio Compra</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Total</th>
+                        <th>Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let basic of detalle.controls; let i = index">
+                        <th>{{i+1}}</th>
+                        <td>
+                          <mat-form-field class="example-full-width" style="width: 450px;" appearance="outline">
+                            <input matInput readonly [formControl]="basic.get('nombre_producto')">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field class="example-full-width" style="width: 150px;" appearance="outline">
+                            <input matInput [formControl]="basic.get('stock')" (change)="onCantidad($event, i)">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field class="example-full-width" style="width: 150px;" appearance="outline">
+                            <input matInput [formControl]="basic.get('precio')" (change)="onCantidad($event, i)">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field class="example-full-width" style="width: 150px;" appearance="outline">
+                            <input matInput [formControl]="basic.get('cantidad')" (change)="onCantidad($event, i)">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <mat-form-field class="example-full-width" appearance="outline">
+                            <input matInput [formControl]="basic.get('total')">
+                          </mat-form-field>
+                        </td>
+                        <td>
+                          <button type="button" mat-icon-button color="warn" tabindex="-1" (click)="restarUno(i)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr>
+                        <th colspan="5">TOTAL BS.</th>
+                        <td>
+                          <mat-form-field class="example-full-width" appearance="outline">
+                            <input matInput [value]="total|number:'.2-2'" readonly>
+                          </mat-form-field>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+
+                <div class="row mt-5">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                    <div class="example-button-row">
+                      <button type="submit" [disabled]="!form.valid || loading" [class.auth-spinner]="loading" mat-raised-button color="primary">Guardar</button>
+                      <button type="button" [routerLink]="'/dashboard/ingresos/listar'" mat-raised-button color="warn" tabindex="-1">Cancelar</button>
+                      <button type="button" (click)="pasarVenta(form.value)" [disabled]="!form.valid || isloading" [class.auth-spinner]="isloading" mat-raised-button color="accent">Vender</button>
+                    
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

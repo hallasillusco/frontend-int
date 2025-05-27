@@ -1,0 +1,58 @@
+<section class="tp-slider-area p-relative z-index-1 resp ">
+  <div class="tp-slider-active tp-slider-variation swiper-container" #swiperContainer
+  [ngClass]="[swiperIndex === 2 ? 'is-light' : '']">
+     <div class="swiper-wrapper">
+      <!-- <div *ngFor="let item of HomeSliderData" class="tp-slider-item tp-slider-height d-flex align-items-center swiper-slide" [ngClass]="[item?.art_studio1 ? 'art-studio1' : item?.art_studio2 ? 'art-studio2' : item?.art_studio3 ? 'art-studio3': item?.art_studio4 ? 'art-studio4':'']"> -->
+         <div *ngFor="let item of banner" class="tp-slider-item tp-slider-height d-flex align-items-center swiper-slide"  [ngStyle]="{
+            'background-image': 'url(' + url + item?.img_url + ')',
+            'background-size': 'cover'
+            }" >
+        <div class="tp-slider-shape">
+          <img class="tp-slider-shape-1" src="assets/website/img/slider/shape/slider-shape-1.png" alt="slider-shape">
+          <img class="tp-slider-shape-2" src="assets/website/img/slider/shape/slider-shape-2.png" alt="slider-shape">
+          <img class="tp-slider-shape-3" src="assets/website/img/slider/shape/slider-shape-3.png" alt="slider-shape">
+          <img class="tp-slider-shape-4" src="assets/website/img/slider/shape/slider-shape-4.png" alt="slider-shape">   
+       </div>
+       <div class="container">
+          <div class="row align-items-center">
+             <div class="col-xl-5 col-lg-6 col-md-6">
+                <div class="tp-slider-content p-relative z-index-1">
+                   <!--<span>{{item.pre_title.text}} <b>${{item.pre_title.price}}</b></span>-->
+                   <h3 class="tp-slider-title">{{item.nombre}}</h3>
+                   <p>{{item.descripcion}}
+                  </p>
+
+                   <div class="tp-slider-btn">
+                      <a routerLink="/website/shop" class="tp-btn tp-btn-2 tp-btn-white">+ Ver mas
+                         <svg width="17" height="14" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 6.99976L1 6.99976" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M9.9502 0.975414L16.0002 6.99941L9.9502 13.0244" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                         </svg>
+                      </a>
+                   </div>
+                </div>
+             </div>
+             <!--<div class="col-xl-7 col-lg-6 col-md-6">
+                <div class="tp-slider-thumb text-end">
+                   <img [src]="item.img" alt="slider-img">
+                </div>
+             </div>-->
+          </div>
+       </div> 
+      </div>
+     </div>
+     <div class="tp-slider-arrow tp-swiper-arrow d-none d-lg-block">
+        <button (click)="swiperInstance?.slidePrev()" type="button" class="tp-slider-button-prev">
+           <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 13L1 7L7 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+           </svg>
+        </button>
+        <button (click)="swiperInstance?.slideNext()" type="button" class="tp-slider-button-next">
+           <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 13L7 7L1 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+           </svg>
+        </button>
+     </div>
+     <div class="tp-slider-dot tp-swiper-dot"></div>
+  </div>
+</section>

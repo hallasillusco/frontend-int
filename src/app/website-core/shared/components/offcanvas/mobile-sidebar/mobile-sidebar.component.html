@@ -1,0 +1,146 @@
+<div [ngClass]="['offcanvas__area offcanvas__radius', utilsService.openMobileMenus ? 'offcanvas-opened' : '']"
+>
+<div class="offcanvas__wrapper">
+  <div class="offcanvas__close">
+    <button (click)="utilsService.handleOpenMobileMenu()" class="offcanvas__close-btn offcanvas-close-btn">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 1L1 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1 1L11 11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    </button>
+  </div>
+  <div class="offcanvas__content">
+    <div class="offcanvas__top mb-70 d-flex justify-content-between align-items-center">
+      <div class="offcanvas__logo logo">
+        <a routerLink="/home/electronic">
+          <img src="/assets/website/img/logo/logo.png" alt="logo" />
+        </a>
+      </div>
+    </div>
+    <!-- mobile category start -->
+    <!-- <header-component-mobile-categories :product-type="productType" /> -->
+    <div class="offcanvas__category pb-40">
+      <button (click)="toggleCategoryActive()" class="tp-offcanvas-category-toggle">
+        <i class="fa-solid fa-bars"></i>
+        Categorias
+      </button>
+      <div class="tp-category-mobile-menu">
+        <nav [ngClass]="['tp-category-menu-content', isCategoryActive ? 'active' : '']">
+          <ul [ngClass]="isCategoryActive ? 'active' : ''">
+            <li *ngFor="let item of tipos; let i = index" class="has-dropdown">
+              <a class="cursor-pointer">
+                <span>{{ item.nombre }}</span>
+                <button *ngIf="item.categorias" (click)="handleOpenCategory(item.nombre)" class="dropdown-toggle-btn">
+                  <i class="fa-regular fa-angle-right"></i>
+                </button>
+              </a>
+
+              <ul *ngIf="item.categorias" [ngClass]="['tp-submenu', openCategory === item.nombre ? 'active' : '']">
+                <!-- <nav class="tp-category-menu-content" >
+
+                </nav> -->
+                <li *ngFor="let shop_m of item.categorias; let i = index" class="has-dropdown" >
+                  <a class="cursor-pointer" (click)="handleSearchSubmit(shop_m.id,'')" >
+                    <span>{{ shop_m.nombre }}</span>
+                    <!-- <button *ngIf="shop_m.sub_categorias" (click)="handleOpenSubCategory(shop_m.nombre)" class="dropdown-toggle-btn">
+                      <i class="fa-regular fa-angle-right"></i>
+                    </button> -->
+                  </a>
+                  <!-- <ul *ngIf="shop_m.sub_categorias" [ngClass]="['tp-submenu', openSubCategory === shop_m.nombre ? 'active' : '']" >
+                    <li *ngFor="let shop_sm of shop_m.sub_categorias; let i = index" >
+                        <a class="cursor-pointer" >
+                            {{shop_sm.nombre}}
+                        </a>
+                    </li>
+                  </ul> -->
+                </li>
+                <ul></ul>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- mobile category end -->
+    <div class="tp-main-menu-mobile fix d-lg-none mb-40">
+      <!-- mobile menus start -->
+
+    <nav class="tp-main-menu-content">
+      <ul *ngFor="let menu of mobile_menu">
+        <li
+          *ngIf="menu.homes"
+          [ngClass]="['has-dropdown has-mega-menu',isActiveMenu === menu.title ? 'dropdown-opened' : '']"
+        >
+          <a [ngClass]="isActiveMenu === menu.title ? 'expanded' : '' ">
+            Home
+            <button
+              (click)="handleOpenSubMenu(menu.title)"
+              [ngClass]="['dropdown-toggle-btn',isActiveMenu === menu.title ? 'dropdown-opened' : '']"
+            >
+              <i class="fa-regular fa-angle-right"></i>
+            </button>
+          </a>
+          <div
+            [ngClass]="['home-menu tp-submenu tp-mega-menu',isActiveMenu === menu.title ? 'active' : '']"
+          >
+            <div class="row row-cols-1 row-cols-lg-4 row-cols-xl-5">
+              <div *ngFor="let home of menu.home_pages" class="col">
+                <div class="home-menu-item">
+                  <a [routerLink]="home.link">
+                    <div class="home-menu-thumb p-relative fix">
+                      <img [src]="home.img" alt="home img" />
+                    </div>
+                    <div class="home-menu-content">
+                      <h5 class="home-menu-title">{{ home.title }}</h5>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li *ngIf="menu.sub_menu"
+          [ngClass]="['has-dropdown',isActiveMenu === menu.title ? 'dropdown-opened' : '']"
+        >
+          <a [ngClass]="isActiveMenu === menu.title ? 'expanded' : ''">
+            {{ menu.title }}
+            <button
+              (click)="handleOpenSubMenu(menu.title)"
+              [ngClass]="['dropdown-toggle-btn',isActiveMenu === menu.title ? 'dropdown-opened' : '']"
+            >
+              <i class="fa-regular fa-angle-right"></i>
+            </button>
+          </a>
+          <ul [ngClass]="['tp-submenu',isActiveMenu === menu.title ? 'active' : '']">
+            <li *ngFor="let subMenu of menu.sub_menus">
+              <a [routerLink]="subMenu.link">{{ subMenu.title }}</a>
+            </li>
+          </ul>
+        </li>
+        <li *ngIf="!menu.sub_menu && !menu.home_pages">
+          <a [routerLink]="menu.link">{{menu.title}}</a>
+        </li>
+      </ul>
+    </nav>
+
+      <!-- mobile menus end -->
+    </div>
+  </div>
+  <div class="offcanvas__bottom">
+    <div class="offcanvas__footer d-flex align-items-center justify-content-between">
+      <div class="offcanvas__currency-wrapper currency">
+        <span (click)="handleToggleActive('currency')" class="offcanvas__currency-selected-currency tp-currency-toggle"    id="tp-offcanvas-currency-toggle">
+          Currency : BO
+        </span>
+        <ul [ngClass]="['offcanvas__currency-list tp-currency-list',isToggleActive === 'currency' ? 'tp-currency-list-open' : '']"
+        >
+          <li>BO</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div (click)="utilsService.handleOpenMobileMenu()" [ngClass]="['body-overlay', utilsService.openMobileMenus ? 'opened' : '']"></div>

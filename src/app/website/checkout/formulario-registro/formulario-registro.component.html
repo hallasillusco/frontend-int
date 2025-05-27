@@ -1,0 +1,77 @@
+<div class="row">
+    <div class="col-md-12">
+      <div class="tp-checkout-input">
+        <label>Email<span>*</span></label>
+        <input type="email" placeholder="Email" name="email" [formControl]="checkout.get('email')">
+        <!-- error msg start -->
+        <span
+          *ngIf="(checkout.get('email')?.hasError('required') && checkout.get('email')?.touched) || (checkout.get('email')?.hasError('email') && checkout.get('email')?.dirty) || (formSubmitted && !checkout.get('email')?.value)"
+          class="text-danger"
+          >
+          El correo electrónico es obligatorio y debe ser una dirección de correo válida
+        </span>
+        <!-- error msg end -->
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="tp-checkout-input">
+        <label>Razón Social <span>*</span></label>
+        <input type="text" placeholder="Razón Social" name="firstName" [formControl]="checkout.get('razon_social')">
+        <!-- error msg start -->
+        <span *ngIf="checkout.get('razon_social')?.hasError('required') && (checkout.get('razon_social')?.touched ||formSubmitted)"
+          class="text-danger">
+          Razón Social es requerido
+        </span>
+        <!-- error msg end -->
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="tp-checkout-input">
+        <label>Nombre Completo <span>*</span></label>
+        <input type="text" placeholder="Nombre Completo" name="lastName" [formControl]="checkout.get('nombre_completo')">
+        <!-- error msg start -->
+        <span *ngIf="checkout.get('nombre_completo')?.hasError('required') && (checkout.get('nombre_completo')?.touched ||formSubmitted)"
+          class="text-danger">
+          Nombre completo es requerido
+        </span>
+        <!-- error msg end -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="tp-checkout-input">
+        <label>NIT</label>
+        <input type="text" placeholder="NIT" name="lastName" [formControl]="checkout.get('nit')">
+        
+        <span *ngIf="checkout.get('nit')?.hasError('required') && (checkout.get('nit')?.touched ||formSubmitted)" class="text-danger">
+          NIT es requerido
+        </span>
+        <!-- error msg end -->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="tp-checkout-input">
+        <label>Celular</label>
+        <input type="text" placeholder="Celular" name="zipCode" [formControl]="checkout.get('celular')">
+        <!-- error msg start -->
+        <span *ngIf="checkout.get('celular')?.hasError('required') && (checkout.get('celular')?.touched ||formSubmitted)" class="text-danger">
+          Celular es requerido
+        </span>
+        <!-- error msg end -->
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="tp-checkout-input">
+        <label>Dirección<span>*</span></label>
+        <input type="text" placeholder="Dirección" name="Dirección" [formControl]="checkout.get('direccion')">
+        <!-- error msg start -->
+        <span
+          *ngIf="(checkout.get('direccion')?.hasError('required') && checkout.get('direccion')?.touched)"
+          class="text-danger"
+          >
+          El correo electrónico es obligatorio y debe ser una dirección de correo válida
+        </span>
+        <!-- error msg end -->
+      </div>
+    </div>
+    
+  </div>

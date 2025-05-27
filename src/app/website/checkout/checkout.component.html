@@ -1,0 +1,152 @@
+<main>
+  <div>
+    <app-breadcrumb-one title="Pagar" subtitle="Pagar"></app-breadcrumb-one>
+  </div>
+
+  <section class="tp-checkout-area pb-120" style="background-color: #fcfbfb;">
+    <div class="container">
+      <div *ngIf="cartService.getCartProducts().length === 0; else checkoutBlock" class="text-center pt-50">
+        <h3 class="py-2" *ngIf="!data">No se encontraron artículos en el carrito para realizar el pago</h3>
+        <h3 class="py-2" *ngIf="data">
+          ¡Gracias por realizar tu pedido!, enseguida te enviaremos un correo de confirmación,
+          Mientras tanto, no dudes en ponerte en contacto con nosotros si tienes alguna pregunta o solicitud especial. Estamos aquí para ayudarte en cualquier momento.
+        </h3>
+        <a routerLink="/website/shop" class="tp-checkout-btn">Regresar a la tienda</a>
+      </div>
+
+      <ng-template #checkoutBlock>
+        <div class="row">
+          <div class="col-xl-7 col-lg-7">
+            <div class="tp-checkout-verify">
+              <div class="tp-checkout-verify-item">
+                <p class="tp-checkout-verify-reveal">¿Soy Cliente?
+                  <button (click)="handleOpenLogin()" type="button" class="tp-checkout-login-form-reveal-btn" style="font-size: 14px !important">
+                    Haga clic aquí para ingresar
+                  </button>
+                </p>
+                <div *ngIf="isOpenLogin" id="tpReturnCustomerLoginForm" class="tp-return-customer">
+                  <app-formulario-busqueda (data)="getById($event)"></app-formulario-busqueda>
+                </div>
+              </div>
+            </div>
+          </div>
+          <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+            <div class="row">
+              <div class="col-lg-7">
+                <div class="tp-checkout-bill-area">
+                  <h3 class="tp-checkout-bill-title">Detalles de compra</h3>
+                  <div class="tp-checkout-bill-form">
+                    <div class="tp-checkout-bill-inner">
+                      <app-formulario-registro [checkout]="checkoutForm" [formSubmitted]="formSubmitted"></app-formulario-registro>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="tp-checkout-place white-bg">
+                  <h3 class="tp-checkout-place-title">Tu pedido</h3>
+                  <div class="tp-order-info-list">
+                    <ul>
+                      <li class="tp-order-info-list-header">
+                        <h4>Producto</h4>
+                        <h4>Total</h4>
+                      </li>
+                      <li *ngFor="let item of cartService.getCartProducts()" class="tp-order-info-list-desc">
+                        <p>{{item.nombre}} <span> x {{item.orderQuantity}}</span></p>
+                        <span *ngIf="item.descuento > 0; else noDiscount">
+                          Bs.{{ item.precio_desc }}
+                        </span>
+                        <ng-template #noDiscount>
+                          <span>Bs. {{item.precio_unit}}</span>
+                        </ng-template>
+                      </li>
+                      <li class="tp-order-info-list-subtotal">
+                        <span>Subtotal</span>
+                        <span>Bs.{{cartService.totalPriceQuantity().total.toFixed(2)}}</span>
+                      </li>
+                      <li class="tp-order-info-list-shipping">
+                        <span>Envio</span>
+                        <div class="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
+                          <span>
+                            <input id="flat_rate" type="radio" name="shipping">
+                            <label (click)="handleShippingCost(20)" for="flat_rate">Tarifa plana:
+                              <span>Bs.20.00</span></label>
+                          </span>
+                          <span>
+                            <input id="local_pickup" type="radio" name="shipping">
+                            <label (click)="handleShippingCost(25)" for="local_pickup">Recoger pedido:
+                              <span>Bs.25.00</span></label>
+                          </span>
+                          <span>
+                            <input id="free_shipping" type="radio" name="shipping">
+                            <label (click)="handleShippingCost('free')" for="free_shipping">Envio gratis</label>
+                          </span>
+                        </div>
+                      </li>
+                      <li class="tp-order-info-list-total">
+                        <span>Total</span>
+                        <span>
+                          Bs.{{(cartService.totalPriceQuantity().total + shipCost).toFixed(2)}}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="tp-checkout-payment">
+                    <div class="tp-checkout-payment-item">
+                      <input type="radio" id="back_transfer" name="payment">
+                      <label (click)="handlePayment(1)" for="back_transfer" data-bs-toggle="direct-bank-transfer">Transferencia Bancaria</label>
+                      <div *ngIf="payment_name == 1" class="tp-checkout-payment-desc direct-bank-transfer">
+                        <p>
+                          Realice su pago directamente en nuestra cuenta bancaria. Por favor, utilice su ID de Pedido como referencia de pago. Su pedido no será enviado hasta que los fondos se hayan acreditado en nuestra cuenta.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="tp-checkout-payment-item">
+                      <input type="radio" id="card_payment" name="payment">
+                      <label (click)="handlePayment(3)" for="card_payment">Pagar con Tarjeta</label>
+                      <div *ngIf="payment_name == 3" class="tp-checkout-payment-desc card-payment">
+                        <form [formGroup]="cardForm" (ngSubmit)="onCardSubmit(cardForm.value)">
+                          <div class="form-group2">
+                            <label  for="cardNumber">Número de Tarjeta</label>
+                            <input class="form-control" type="text" id="cardNumber" formControlName="cardNumber" class="form-control" placeholder="0000 0000 0000 0000">
+                          </div>
+                          <div class="form-group">
+                            <label for="expiryDate">Fecha de Expiración</label>
+                            <input class="form-control" type="text" id="expiryDate" formControlName="expiryDate" class="form-control" placeholder="MM/YY">
+                          </div>
+                          <div class="form-group">
+                            <label for="cvc">CVC</label>
+                            <input class="form-control" type="text" id="cvc" formControlName="cvc" class="form-control" placeholder="CVC">
+                          </div>
+                          <div class="form-group">
+                            <label for="cardHolderName">Nombre del Titular</label>
+                            <input class="form-control" type="text" id="cardHolderName" formControlName="cardHolderName" class="form-control" placeholder="Nombre del Titular">
+                          </div>
+                          <button type="submit" class="tp-checkout-btn w-100">Pagar</button>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="tp-checkout-payment-item">
+                      <input type="radio" id="cheque_payment" name="payment">
+                      <label (click)="handlePayment(2)" for="cheque_payment">Pago con QR</label>
+                      <div *ngIf="payment_name == 2" class="tp-checkout-payment-desc cheque-payment">
+                        <p>Realice su pago escaneando el código QR. Por favor, utilice su ID de Pedido como referencia de pago. Su pedido no será enviado hasta que los fondos se hayan acreditado en nuestra cuenta.</p>
+                      </div>
+                    </div>
+                    <span *ngIf="payment_name==0" class="text-danger">Seleccione el tipo de pago</span>
+                  </div>
+                  <div class="tp-checkout-btn-wrapper">
+                    <button type="submit" [disabled]="!checkoutForm.valid" class="tp-checkout-btn w-100">Realizar Pedido</button>
+                  </div>
+                  <div class="tp-checkout-btn-wrapper mt-3">
+                    <button type="button" routerLink="/website/shop" class="tp-btn tp-btn-border w-100">Continuar Comprando</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </ng-template>
+    </div>
+  </section>
+</main>

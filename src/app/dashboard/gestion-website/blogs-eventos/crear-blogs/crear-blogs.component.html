@@ -1,0 +1,61 @@
+<div class="addContainer">
+    <div class="modalHeader">
+      <div class="editRowModal">
+        <div class="modalHeader clearfix">
+            <div class="modal-about">
+              {{data.title}}
+            </div>
+          </div>
+        </div>
+        <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+        <form class="register-form m-4" [formGroup]="form" (ngSubmit)="register(form.value)" >
+          <mat-dialog-content>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label> Tipo</mat-label>
+                      <mat-select formControlName="tipo_blog_id">
+                        <mat-option *ngFor="let item of tipos" [value]="item.id" >
+                          {{item.nombre}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="form.get('tipo_blog_id')?.hasError('required')">
+                        Tipo requerido
+                      </mat-error>
+                    </mat-form-field>
+                </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                      <mat-label>Titulo</mat-label>
+                      <input matInput formControlName="nombre" required>
+                      <mat-error *ngIf="form.get('nombre')!.hasError('required')">
+                          Titulo es requerido
+                      </mat-error>
+                  </mat-form-field>				
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4">
+                  <label for="nombre" class="form-label">Imagen</label>
+                  <app-file-upload formControlName="file" titulo="Subir Imagen"
+                  (foto)="agregarFoto($event)" ></app-file-upload>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                      <mat-label>Titulo</mat-label>
+                      <ckeditor [editor]="Editor"  formControlName="descripcion" data="<p>Hello, world!</p>"></ckeditor>					
+              </div>
+              </div>
+          </mat-dialog-content>
+          <mat-dialog-actions align="end" class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div class="example-button-row">
+                <button  type="submit" [disabled]="!form.valid || isLoading"  [class.auth-spinner]="isLoading"   mat-raised-button color="primary" 
+                >Guardar</button>
+                <button type="button"  mat-raised-button color="warn"  tabindex="-1">Cancelar</button>
+              </div>
+            </div>
+          </mat-dialog-actions>
+        </form>
+  </div>
+

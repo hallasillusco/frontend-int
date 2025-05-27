@@ -1,0 +1,75 @@
+@use '../utils' as *;
+
+/*----------------------------------------*/
+/*  2.6 Background
+/*----------------------------------------*/
+.grey-bg {
+	background-color: var(--tp-grey-1);
+}
+.grey-bg-2 {
+	background-color: var(--tp-grey-2);
+}
+.grey-bg-5 {
+	background-color: var(--tp-grey-5);
+}
+.grey-bg-6 {
+	background-color: var(--tp-grey-6);
+}
+.grey-bg-7 {
+	background-color: var(--tp-grey-7);
+}
+.grey-bg-8 {
+	background-color: var(--tp-grey-8);
+}
+.grey-bg-9 {
+	background-color: var(--tp-grey-9);
+}
+
+.white-bg {
+	background-color: var(--tp-common-white);
+}
+
+.black-bg {
+	background-color: var(--tp-common-black);
+}
+
+.khaki-bg{
+	background-color: var(--tp-khaki-1);
+}
+
+.green-dark-bg{
+	background-color: var(--tp-green-dark);
+}
+
+.art-studio1{
+	background:url('../../img/banner/6/slider-bg-11.jpg');
+	background-size: cover;
+}
+.art-studio2{
+	background:url('../../img/banner/6/slider-bg-3.jpg');
+	background-size: cover;
+}
+
+.art-studio3{
+	background:url('../../img/banner/6/slider-bg-2.jpg');
+	background-size: cover;
+}
+.art-studio4{
+	background:url('../../img/banner/6/slider-bg-4.jpg');
+	background-size: cover;
+}
+
+.theme-bg{
+	background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), url('../../img/banner/6/b-4.jpg');
+	background-size: cover;
+
+}
+
+
+[data-bg-color = "footer-bg-grey"] {
+	background-color: var(--tp-common-black);
+}
+
+[data-bg-color = "footer-bg-white"] {
+	background-color : var(--tp-common-white);
+}

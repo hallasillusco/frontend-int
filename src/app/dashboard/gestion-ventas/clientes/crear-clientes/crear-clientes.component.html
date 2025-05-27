@@ -1,0 +1,96 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+          <div class="modal-about">
+            Nuevo Registro
+          </div>
+        </div>
+      </div>
+      <button mat-icon-button (click)="dialogRef.close()" class="modal-close-button" aria-label="Close dialog">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <form [formGroup]="form" (ngSubmit)="register(form.value)">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline" subscriptSizing="dynamic">
+              <mat-label>Razon Social</mat-label>
+              <input matInput formControlName="razon_social" required>
+              <mat-icon matSuffix>face</mat-icon>
+              <mat-error *ngIf="form.get('razon_social')?.hasError('required')">
+              Razon_Social Requerido
+              </mat-error>
+              </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Nombre Completo</mat-label>
+              <input matInput formControlName="nombre_completo" required>
+              <mat-icon matSuffix>face</mat-icon>
+              <mat-error *ngIf="form.get('nombre_completo')?.hasError('required')">
+                Nombre_Completo  Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Nit</mat-label>
+              <input matInput formControlName="nit" required>
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>credit_card</mat-icon>
+              <mat-error *ngIf="form.get('nit')?.hasError('required')">
+                Nit Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Celular</mat-label>
+                <input matInput formControlName="celular" required>
+                <mat-icon matSuffix>phone</mat-icon>
+                <mat-error *ngIf="form.get('celular')?.hasError('required')">
+                  Celular Requerido
+                </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Direccion</mat-label>
+              <input matInput formControlName="direccion" required>
+              <mat-icon matSuffix>house</mat-icon>
+              <mat-error *ngIf="form.get('direccion')?.hasError('required')">
+                Direccion Requerido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email">
+              <mat-icon matSuffix>email</mat-icon>
+              <mat-error *ngIf="form.get('email')?.hasError('email')">
+                Email no valido
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Tipo Cliente</mat-label>
+              <mat-select formControlName="tipo_cliente_id" >
+                <mat-option *ngFor="let item of tipos" [value]="item.id">{{item.nombre}} - Descuento: {{item.descuento}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2">
+            <div class="example-button-row">
+              <button [disabled]="!form.valid|| loading"  [class.auth-spinner]="loading" type="submit" mat-raised-button color="primary">Guardar</button>
+              <button type="button" mat-raised-button color="warn" tabindex="-1" (click)="dialogRef.close()">Cancelar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+</div>
