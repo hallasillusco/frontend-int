@@ -1,7 +1,12 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+// import { GraficoTableauComponent } from 'src/app/dashboard/grafico-tableau/grafico-tableau.component';
+import { GraficoTableauComponent } from 'src/app/dashboard/grafico-tableau/grafico-tableau.component';
+
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 // header and footer components
 import { HeaderOneComponent } from './header/header-one/header-one.component';
@@ -130,7 +135,11 @@ import { MatIconModule } from '@angular/material/icon';
     CountdownTimerComponent,
     MobileSidebarComponent,
     PaginationTwoComponent,
-    MenuTiposComponent
+    MenuTiposComponent,
+      NiceSelectComponent,
+      
+      PaginationTwoComponent
+     
   ],
   imports: [
     CommonModule,
@@ -192,7 +201,11 @@ import { MatIconModule } from '@angular/material/icon';
     ProductDetailsWrapperComponent,
     CountdownTimerComponent,
     PaginationTwoComponent,
-    MenuTiposComponent
+    MenuTiposComponent,
+     NiceSelectComponent,
+     
+  PaginationTwoComponent
+    
   ],
 })
 export class SharedModule { }

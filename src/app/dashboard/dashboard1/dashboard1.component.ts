@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexDataLabels, ApexTooltip, ApexYAxis, ApexPlotOptions, ApexStroke, ApexLegend, ApexFill, ApexMarkers, ApexGrid, ApexTitleSubtitle, ApexResponsive, NgApexchartsModule } from 'ng-apexcharts';
+import {
+  ApexAxisChartSeries, ApexChart, ApexXAxis, ApexDataLabels, ApexTooltip, ApexYAxis,
+  ApexPlotOptions, ApexStroke, ApexLegend, ApexFill, ApexMarkers, ApexGrid,
+  ApexTitleSubtitle, ApexResponsive, NgApexchartsModule
+} from 'ng-apexcharts';
+
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -18,7 +23,10 @@ export type ChartOptions = {
   grid: ApexGrid;
   title: ApexTitleSubtitle;
 };
-import { CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag, CdkDragHandle, CdkDragPlaceholder } from '@angular/cdk/drag-drop';
+
+import {
+  CdkDragDrop, moveItemInArray, CdkDropList, CdkDrag, CdkDragHandle, CdkDragPlaceholder
+} from '@angular/cdk/drag-drop';
 import { NgClass } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -31,29 +39,30 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { BreadcrumbComponent } from '../../shared/components/breadcrumb/breadcrumb.component';
 import { reportesService } from '@core';
+
 @Component({
-    selector: 'app-dashboard1',
-    templateUrl: './dashboard1.component.html',
-    styleUrls: ['./dashboard1.component.scss'],
-    standalone: true,
-    imports: [
-        BreadcrumbComponent,
-        MatButtonModule,
-        MatMenuModule,
-        MatIconModule,
-        FeatherIconsComponent,
-        NgApexchartsModule,
-        NgScrollbar,
-        RouterLink,
-        MatProgressBarModule,
-        CdkDropList,
-        CdkDrag,
-        CdkDragHandle,
-        MatCheckboxModule,
-        CdkDragPlaceholder,
-        MatTooltipModule,
-        NgClass,
-    ],
+  selector: 'app-dashboard1',
+  templateUrl: './dashboard1.component.html',
+  styleUrls: ['./dashboard1.component.scss'],
+  standalone: true,
+  imports: [
+    BreadcrumbComponent,
+    MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    FeatherIconsComponent,
+    NgApexchartsModule,
+    NgScrollbar,
+    RouterLink,
+    MatProgressBarModule,
+    CdkDropList,
+    CdkDrag,
+    CdkDragHandle,
+    MatCheckboxModule,
+    CdkDragPlaceholder,
+    MatTooltipModule,
+    NgClass,
+  ],
 })
 export class Dashboard1Component implements OnInit {
   public areaChartOptions!: Partial<ChartOptions>;
@@ -62,52 +71,39 @@ export class Dashboard1Component implements OnInit {
   public performanceRateChartOptions!: Partial<ChartOptions>;
   datos: any;
 
-  constructor(
-    private reportesService: reportesService
-  ) {
-    //constructor
-  }
+  constructor(private reportesService: reportesService) {}
+
   ngOnInit() {
     this.chart1();
-    this.chart3();
     this.chart2();
+    this.chart3();
     this.chart4();
     this.listaDatos();
   }
 
-  listaDatos(){
-    this.reportesService.getDatos().subscribe((data:any)=>{
+  listaDatos() {
+    this.reportesService.getDatos().subscribe((data: any) => {
       this.datos = data;
-    })
+    });
   }
 
   private chart1() {
     this.areaChartOptions = {
       series: [
-        {
-          name: 'New Clients',
-          data: [31, 40, 28, 51, 42, 85, 77],
-        },
-        {
-          name: 'Old Clients',
-          data: [11, 32, 45, 32, 34, 52, 41],
-        },
+        { name: 'New Clients', data: [31, 40, 28, 51, 42, 85, 77] },
+        { name: 'Old Clients', data: [11, 32, 45, 32, 34, 52, 41] }
       ],
       chart: {
-        height: 350,
+        height: 240,
+        width: '100%',
         type: 'area',
-        toolbar: {
-          show: false,
-        },
+        toolbar: { show: false },
         foreColor: '#9aa0ac',
+        redrawOnParentResize: true,
       },
       colors: ['#4FC3F7', '#7460EE'],
-      dataLabels: {
-        enabled: false,
-      },
-      stroke: {
-        curve: 'smooth',
-      },
+      dataLabels: { enabled: false },
+      stroke: { curve: 'smooth' },
       grid: {
         show: true,
         borderColor: '#9aa0ac',
@@ -116,90 +112,46 @@ export class Dashboard1Component implements OnInit {
       xaxis: {
         type: 'datetime',
         categories: [
-          '2018-09-19',
-          '2018-09-20',
-          '2018-09-21',
-          '2018-09-22',
-          '2018-09-23',
-          '2018-09-24',
-          '2018-09-25',
-        ],
+          '2018-09-19', '2018-09-20', '2018-09-21',
+          '2018-09-22', '2018-09-23', '2018-09-24', '2018-09-25'
+        ]
       },
       legend: {
         show: true,
         position: 'top',
-        horizontalAlign: 'center',
-        offsetX: 0,
-        offsetY: 0,
+        horizontalAlign: 'center'
       },
-
-      tooltip: {
-        theme: 'dark',
-        marker: {
-          show: true,
-        },
-        x: {
-          show: true,
-        },
-      },
+      tooltip: { theme: 'dark' }
     };
   }
+
   private chart2() {
     this.barChartOptions = {
       series: [
-        {
-          name: 'New Errors',
-          data: [44, 55, 41, 67, 22, 43],
-        },
-        {
-          name: 'Bugs',
-          data: [13, 23, 20, 8, 13, 27],
-        },
-        {
-          name: 'Development',
-          data: [11, 17, 15, 15, 21, 14],
-        },
-        {
-          name: 'Payment',
-          data: [21, 7, 25, 13, 22, 8],
-        },
+        { name: 'New Errors', data: [44, 55, 41, 67, 22, 43] },
+        { name: 'Bugs', data: [13, 23, 20, 8, 13, 27] },
+        { name: 'Development', data: [11, 17, 15, 15, 21, 14] },
+        { name: 'Payment', data: [21, 7, 25, 13, 22, 8] }
       ],
       chart: {
+        height: 240,
+        width: '100%',
         type: 'bar',
-        height: 350,
-        foreColor: '#9aa0ac',
         stacked: true,
-        toolbar: {
-          show: false,
-        },
+        foreColor: '#9aa0ac',
+        toolbar: { show: false },
+        redrawOnParentResize: true,
       },
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            legend: {
-              position: 'bottom',
-              offsetX: -10,
-              offsetY: 0,
-            },
-          },
-        },
-      ],
       plotOptions: {
         bar: {
           horizontal: false,
           columnWidth: '30%',
         },
       },
-      dataLabels: {
-        enabled: false,
-      },
+      dataLabels: { enabled: false },
       xaxis: {
         type: 'category',
         categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      },
-      legend: {
-        show: false,
       },
       grid: {
         show: true,
@@ -210,41 +162,23 @@ export class Dashboard1Component implements OnInit {
         opacity: 0.8,
         colors: ['#E82742', '#2F3149', '#929DB0', '#CED6D3'],
       },
-      tooltip: {
-        theme: 'dark',
-        marker: {
-          show: true,
-        },
-        x: {
-          show: true,
-        },
-      },
+      tooltip: { theme: 'dark' }
     };
   }
+
   private chart3() {
     this.earningOptions = {
       series: [
-        {
-          name: '2019',
-          data: [15, 48, 36, 20, 40, 60, 35, 20, 16, 31, 22, 11],
-        },
-        {
-          name: '2018',
-          data: [8, 22, 60, 35, 17, 24, 48, 37, 56, 22, 32, 38],
-        },
+        { name: '2019', data: [15, 48, 36, 20, 40, 60, 35, 20, 16, 31, 22, 11] },
+        { name: '2018', data: [8, 22, 60, 35, 17, 24, 48, 37, 56, 22, 32, 38] }
       ],
       chart: {
         height: 240,
+        width: '100%',
         type: 'line',
-        zoom: {
-          enabled: false,
-        },
-        toolbar: {
-          show: false,
-        },
-      },
-      dataLabels: {
-        enabled: false,
+        zoom: { enabled: false },
+        toolbar: { show: false },
+        redrawOnParentResize: true,
       },
       stroke: {
         width: 3,
@@ -252,172 +186,81 @@ export class Dashboard1Component implements OnInit {
         dashArray: [0, 8],
       },
       colors: ['#8793ea', '#4caf50'],
-      fill: {
-        opacity: [1, 0.5],
-      },
+      fill: { opacity: [1, 0.5] },
+      dataLabels: { enabled: false },
       markers: {
         size: 0,
-        hover: {
-          sizeOffset: 6,
-        },
+        hover: { sizeOffset: 6 },
       },
       xaxis: {
-        categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'Jul',
-          'Aug',
-          'Sep',
-          'Oct',
-          'Nov',
-          'Dec',
-        ],
-        labels: {
-          style: {
-            colors: '#8e8da4',
-          },
-        },
+        categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                     'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+        labels: { style: { colors: '#8e8da4' } },
       },
       yaxis: {
-        labels: {
-          style: {
-            colors: '#8e8da4',
-          },
-        },
+        labels: { style: { colors: '#8e8da4' } }
       },
       grid: {
         show: true,
         borderColor: '#9aa0ac',
         strokeDashArray: 1,
       },
-      tooltip: {
-        theme: 'dark',
-      },
+      tooltip: { theme: 'dark' }
     };
   }
 
   private chart4() {
     this.performanceRateChartOptions = {
       series: [
-        {
-          name: 'Bill Amount',
-          data: [113, 120, 130, 120, 125, 119, 126],
-        },
+        { name: 'Bill Amount', data: [113, 120, 130, 120, 125, 119, 126] }
       ],
       chart: {
-        height: 380,
+        height: 240,
+        width: '100%',
         type: 'line',
         dropShadow: {
           enabled: true,
           color: '#000',
-          top: 18,
-          left: 7,
-          blur: 10,
+          top: 10,
+          left: 5,
+          blur: 6,
           opacity: 0.2,
         },
         foreColor: '#9aa0ac',
-        toolbar: {
-          show: false,
-        },
+        toolbar: { show: false },
+        redrawOnParentResize: true,
       },
       colors: ['#6777EF'],
-      dataLabels: {
-        enabled: true,
-      },
-      stroke: {
-        curve: 'smooth',
-      },
-      markers: {
-        size: 1,
-      },
+      dataLabels: { enabled: true },
+      stroke: { curve: 'smooth' },
+      markers: { size: 1 },
       xaxis: {
         categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-        title: {
-          text: 'Weekday',
-        },
+        title: { text: 'Weekday' }
       },
       yaxis: {
-        title: {
-          text: 'Bill Amount($)',
-        },
+        title: { text: 'Bill Amount($)' }
       },
       grid: {
         show: true,
         borderColor: '#9aa0ac',
         strokeDashArray: 1,
       },
-      tooltip: {
-        theme: 'dark',
-        marker: {
-          show: true,
-        },
-        x: {
-          show: true,
-        },
-      },
+      tooltip: { theme: 'dark' }
     };
   }
 
-  // TODO start
+  // Lista tareas (sin cambios)
   tasks = [
-    {
-      id: '1',
-      title: 'Submit Science Homework',
-      done: true,
-      priority: 'High',
-    },
-    {
-      id: '2',
-      title: 'Request for festivle holiday',
-      done: false,
-      priority: 'High',
-    },
-    {
-      id: '3',
-      title: 'Order new java book',
-      done: false,
-      priority: 'Low',
-    },
-    {
-      id: '4',
-      title: 'Remind for lunch in hotel',
-      done: true,
-      priority: 'Normal',
-    },
-    {
-      id: '5',
-      title: 'Pay Hostel Fees',
-      done: false,
-      priority: 'High',
-    },
-    {
-      id: '6',
-      title: 'Attend Seminar On Sunday',
-      done: false,
-      priority: 'Normal',
-    },
-    {
-      id: '7',
-      title: 'Renew bus pass',
-      done: true,
-      priority: 'High',
-    },
-    {
-      id: '8',
-      title: 'Issue book in library',
-      done: false,
-      priority: 'High',
-    },
-    {
-      id: '9',
-      title: 'Project report submit',
-      done: false,
-      priority: 'Low',
-    },
+    { id: '1', title: 'Submit Science Homework', done: true, priority: 'High' },
+    { id: '2', title: 'Request for festivle holiday', done: false, priority: 'High' },
+    { id: '3', title: 'Order new java book', done: false, priority: 'Low' },
+    { id: '4', title: 'Remind for lunch in hotel', done: true, priority: 'Normal' },
+    { id: '5', title: 'Pay Hostel Fees', done: false, priority: 'High' },
+    { id: '6', title: 'Attend Seminar On Sunday', done: false, priority: 'Normal' },
+    { id: '7', title: 'Renew bus pass', done: true, priority: 'High' },
+    { id: '8', title: 'Issue book in library', done: false, priority: 'High' },
+    { id: '9', title: 'Project report submit', done: false, priority: 'Low' }
   ];
 
   drop(event: CdkDragDrop<string[]>) {
@@ -427,5 +270,4 @@ export class Dashboard1Component implements OnInit {
   toggle(task: { done: boolean }) {
     task.done = !task.done;
   }
-  // TODO end
 }

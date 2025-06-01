@@ -1,3 +1,4 @@
+import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseAPIClass } from '@core/class';
@@ -7,95 +8,94 @@ import { Observable, map } from 'rxjs';
   providedIn: 'root'
 })
 export class reportesService extends BaseAPIClass {
-  [x: string]: any;
+
+  constructor(protected override httpClient: HttpClient) {
+    super(httpClient);
+    this.baseUrl = '/reportes';
+  }
+
   reporte_existencias(id: any) {
     throw new Error('Method not implemented.');
   }
 
-  constructor(protected override httpClient: HttpClient) {
-    super(httpClient);
-    this.baseUrl = '/reportes'
-  }
-  getExistencias():Observable<any>{
+  getExistencias(): Observable<any> {
     return this.httpClient.get(this.baseUrl + '/existencias');
   }
-  getExistenciasPDF():Observable<any>{
-    return this.httpClient.get(this.baseUrl + '/existenciaspdf',{responseType:'blob'});
+
+  getExistenciasPDF(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + '/existenciaspdf', { responseType: 'blob' });
   }
 
-  getVentas(filterObject?: any):Observable<any>{
+  getVentas(filterObject?: any): Observable<any> {
     let queryString = '';
     if (filterObject) {
-      const fitlerKeys: any[] = Object.keys(filterObject);
-      if (fitlerKeys.length > 0) {
+      const filterKeys: any[] = Object.keys(filterObject);
+      if (filterKeys.length > 0) {
         queryString = '?';
       }
-      fitlerKeys.forEach((key: any, index) => {
+      filterKeys.forEach((key: any) => {
         if (filterObject[key] !== undefined && filterObject[key] !== null) {
           if (filterObject[key].toString().length) {
             queryString += `${key}=${filterObject[key]}&`;
           }
         }
       });
-      if (
-        fitlerKeys.length > 0 &&
-        queryString[queryString.length - 1] === '&'
-      ) {
+      if (filterKeys.length > 0 && queryString.endsWith('&')) {
         queryString = queryString.slice(0, -1);
       }
-      
     }
 
     return this.httpClient.get(`${this.baseUrl}/ventaproductos${queryString}`).pipe(
-      map((body: any) => {
-        return body;
-      })
+      map((body: any) => body)
     );
   }
-  getVentasPDF(filterObject?: any):Observable<any>{
+
+  getVentasPDF(filterObject?: any): Observable<any> {
     let queryString = '';
     if (filterObject) {
-      const fitlerKeys: any[] = Object.keys(filterObject);
-      if (fitlerKeys.length > 0) {
+      const filterKeys: any[] = Object.keys(filterObject);
+      if (filterKeys.length > 0) {
         queryString = '?';
       }
-      fitlerKeys.forEach((key: any, index) => {
+      filterKeys.forEach((key: any) => {
         if (filterObject[key] !== undefined && filterObject[key] !== null) {
           if (filterObject[key].toString().length) {
             queryString += `${key}=${filterObject[key]}&`;
           }
         }
       });
-      if (
-        fitlerKeys.length > 0 &&
-        queryString[queryString.length - 1] === '&'
-      ) {
+      if (filterKeys.length > 0 && queryString.endsWith('&')) {
         queryString = queryString.slice(0, -1);
       }
-      
     }
 
-    return this.httpClient.get(`${this.baseUrl}/ventaproductospdf${queryString}`,{responseType:'blob'}).pipe(
-      map((body: any) => {
-        return body;
-      })
+    return this.httpClient.get(`${this.baseUrl}/ventaproductospdf${queryString}`, { responseType: 'blob' }).pipe(
+      map((body: any) => body)
     );
   }
 
-  getDatos():Observable<any>{
-    return this.httpClient.get(this.baseUrl+'/datos');
+  getDatos(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + '/datos');
   }
-  getDatosMasvendidos():Observable<any>{
-    return this.httpClient.get(this.baseUrl+'/masvendidos');
+
+  getDatosMasvendidos(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + '/masvendidos');
   }
-  getDatosAgotados():Observable<any>{
-    return this.httpClient.get(this.baseUrl+'/agotados');
+
+  getDatosAgotados(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + '/agotados');
   }
-  getDatosVentas():Observable<any>{
-    return this.httpClient.get(this.baseUrl+'/graficaventas');
+
+  getDatosVentas(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + '/graficaventas');
   }
-  getDatosCategorias():Observable<any>{
-    return this.httpClient.get(this.baseUrl+'/graficacategorias');
+
+  getDatosCategorias(): Observable<any> {
+    return this.httpClient.get(this.baseUrl + '/graficacategorias');
+  }
+
+  // CORREGIDO: Método con URL completa bien formada
+  getDatosPrediccion(): Observable<any> {
+   return this.httpClient.get(`${this.baseUrl}/getDatosPrediccion`);
   }
 }
-
