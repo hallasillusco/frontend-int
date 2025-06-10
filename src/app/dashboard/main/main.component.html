@@ -107,21 +107,37 @@
           </div>
         </div>
 
-        <!-- 📈 Predicción de ventas internas con Chart.js -->
-        <div class="col-lg-12 col-md-12">
-          <div class="card">
-            <div class="body">
-              <h4 class="text-center">Predicción de ventas mensuales</h4>
-              <div *ngIf="lineChartDataPrediccion?.labels?.length">
-                <canvas baseChart
-                        [data]="lineChartDataPrediccion"
-                        [options]="lineChartOptionsPrediccion"
-                        chartType="line">
-                </canvas>
-              </div>
-            </div>
-          </div>
+       
+
+    <!-- 📈 Predicción de ventas internas con Chart.js y Comparativa mensual lado a lado -->
+<div class="row">
+  <!-- Predicción de ventas -->
+  <div class="col-lg-6 col-md-12">
+    <div class="card">
+      <div class="body">
+        <h4 class="text-center">Predicción de ventas mensuales</h4>
+        <div *ngIf="lineChartDataPrediccion?.labels?.length">
+          <canvas baseChart
+                  [data]="lineChartDataPrediccion"
+                  [options]="lineChartOptionsPrediccion"
+                  chartType="line">
+          </canvas>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparativa mensual -->
+ <div class="col-lg-6 col-md-12">
+  <div class="card">
+    <div class="body">
+      <h5 class="text-center mb-2">Comparativa de ventas: Mes actual vs anterior</h5>
+      <app-grafico-comparativa></app-grafico-comparativa>
+    </div>
+  </div>
+</div>
+</div>
+
 
       </div> <!-- Fin row -->
     </div>

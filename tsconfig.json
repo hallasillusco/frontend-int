@@ -30,6 +30,7 @@
       "@shared/*": ["app/shared/*"],
       "@config": ["app/config"],
       "@config/*": ["app/config/*"],
+      
     },
   },
   "angularCompilerOptions": {

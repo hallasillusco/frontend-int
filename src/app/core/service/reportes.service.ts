@@ -14,10 +14,6 @@ export class reportesService extends BaseAPIClass {
     this.baseUrl = '/reportes';
   }
 
-  reporte_existencias(id: any) {
-    throw new Error('Method not implemented.');
-  }
-
   getExistencias(): Observable<any> {
     return this.httpClient.get(this.baseUrl + '/existencias');
   }
@@ -30,9 +26,8 @@ export class reportesService extends BaseAPIClass {
     let queryString = '';
     if (filterObject) {
       const filterKeys: any[] = Object.keys(filterObject);
-      if (filterKeys.length > 0) {
-        queryString = '?';
-      }
+      if (filterKeys.length > 0) queryString = '?';
+
       filterKeys.forEach((key: any) => {
         if (filterObject[key] !== undefined && filterObject[key] !== null) {
           if (filterObject[key].toString().length) {
@@ -40,7 +35,8 @@ export class reportesService extends BaseAPIClass {
           }
         }
       });
-      if (filterKeys.length > 0 && queryString.endsWith('&')) {
+
+      if (queryString.endsWith('&')) {
         queryString = queryString.slice(0, -1);
       }
     }
@@ -54,9 +50,8 @@ export class reportesService extends BaseAPIClass {
     let queryString = '';
     if (filterObject) {
       const filterKeys: any[] = Object.keys(filterObject);
-      if (filterKeys.length > 0) {
-        queryString = '?';
-      }
+      if (filterKeys.length > 0) queryString = '?';
+
       filterKeys.forEach((key: any) => {
         if (filterObject[key] !== undefined && filterObject[key] !== null) {
           if (filterObject[key].toString().length) {
@@ -64,7 +59,8 @@ export class reportesService extends BaseAPIClass {
           }
         }
       });
-      if (filterKeys.length > 0 && queryString.endsWith('&')) {
+
+      if (queryString.endsWith('&')) {
         queryString = queryString.slice(0, -1);
       }
     }
@@ -94,8 +90,12 @@ export class reportesService extends BaseAPIClass {
     return this.httpClient.get(this.baseUrl + '/graficacategorias');
   }
 
-  // CORREGIDO: Método con URL completa bien formada
   getDatosPrediccion(): Observable<any> {
-   return this.httpClient.get(`${this.baseUrl}/getDatosPrediccion`);
+    return this.httpClient.get(`${this.baseUrl}/getDatosPrediccion`);
   }
+
+  getComparativaMensual(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/getComparativaMensual`);
+  }
+
 }

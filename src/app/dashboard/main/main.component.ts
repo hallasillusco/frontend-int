@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
+import { GraficoTableauComponent } from '../grafico-tableau/grafico-tableau.component';
 import { Component, OnInit } from '@angular/core';
 import { reportesService } from '@core';
 import { BreadcrumbComponent } from '@shared/components/breadcrumb/breadcrumb.component';
 import { ChartData, ChartOptions } from 'chart.js';
 import { NgChartsModule } from 'ng2-charts';
 import { Observable } from 'rxjs';
-import { Chart } from 'chart.js';
+import { SharedModule } from '../../website-core/shared/shared.module';
+import { GraficoComparativaComponent } from '../grafico-comparativa/grafico-comparativa.component';
+
 
 @Component({
   selector: 'app-main',
@@ -13,7 +16,10 @@ import { Chart } from 'chart.js';
   imports: [
     BreadcrumbComponent,
     NgChartsModule,
-    CommonModule
+    CommonModule,
+    GraficoTableauComponent,
+       GraficoComparativaComponent,
+    SharedModule // ✅ Importación correcta para usar GraficoComparativaComponent
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
@@ -22,7 +28,6 @@ export class MainComponent implements OnInit {
 
   datos: any;
 
-  // Opciones generales (sin título)
   public lineChartOptions: ChartOptions<'line'> = {
     responsive: true,
     plugins: {
@@ -30,7 +35,6 @@ export class MainComponent implements OnInit {
     }
   };
 
-  // Opciones exclusivas para predicción (con título)
   public lineChartOptionsPrediccion: ChartOptions<'line'> = {
     responsive: true,
     plugins: {
@@ -161,19 +165,19 @@ export class MainComponent implements OnInit {
     });
   }
 
-obtenerDatosGraficaPrediccion() {
-  this.reporteService.getDatosPrediccion().subscribe(
-    data => {
-      console.log('Predicción:', data); // <- este log debería mostrar el JSON correctamente
-      this.lineChartDataPrediccion.labels = data.labels;
-      this.lineChartDataPrediccion.datasets[0].data = data.reales.map(Number);
-      this.lineChartDataPrediccion.datasets[1].data = data.predichos.map(Number);
-    },
-    error => {
-      console.error('Error al obtener datos de predicción', error);
-    }
-  );
-}
+  obtenerDatosGraficaPrediccion() {
+    this.reporteService.getDatosPrediccion().subscribe(
+      data => {
+        console.log('Predicción:', data);
+        this.lineChartDataPrediccion.labels = data.labels;
+        this.lineChartDataPrediccion.datasets[0].data = data.reales.map(Number);
+        this.lineChartDataPrediccion.datasets[1].data = data.predichos.map(Number);
+      },
+      error => {
+        console.error('Error al obtener datos de predicción', error);
+      }
+    );
+  }
 
   getBackgroundColor() {
     return [
