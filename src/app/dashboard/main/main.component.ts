@@ -8,7 +8,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { Observable } from 'rxjs';
 import { SharedModule } from '../../website-core/shared/shared.module';
 import { GraficoComparativaComponent } from '../grafico-comparativa/grafico-comparativa.component';
-
+import { GraficoPrediccionComponent } from '../grafico-prediccion/grafico-prediccion.component';
 
 @Component({
   selector: 'app-main',
@@ -17,6 +17,7 @@ import { GraficoComparativaComponent } from '../grafico-comparativa/grafico-comp
     BreadcrumbComponent,
     NgChartsModule,
     CommonModule,
+     GraficoPrediccionComponent,
     GraficoTableauComponent,
        GraficoComparativaComponent,
     SharedModule // ✅ Importación correcta para usar GraficoComparativaComponent
@@ -132,7 +133,7 @@ export class MainComponent implements OnInit {
   obtenerDatosGrafica() {
     this.lineChartData.datasets[0].backgroundColor = this.getBackgroundColor();
     this.lineChartData.datasets[0].borderColor = this.getBorderColor();
-    this.reporteService.getDatosMasvendidos().subscribe(data => {
+    this.reporteService.getDatosMasVendidos().subscribe((data: any) => {
       this.lineChartData.labels = data.labels;
       this.lineChartData.datasets[0].data = data.data.map(Number);
     });

@@ -25,7 +25,8 @@ export class GraficoComparativaComponent implements OnInit {
   constructor(private reportesService: reportesService) {}
 
   ngOnInit(): void {
-    this.reportesService.getComparativaMensual().subscribe((data: ComparativaData) => {
+    this.reportesService.getDatosComparativaMensual().subscribe((data: ComparativaData) => {
+
       this.createChart(data.labels, data.totales);
     });
   }
