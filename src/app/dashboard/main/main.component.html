@@ -8,6 +8,7 @@
     <div class="container-fluid">
       <!-- Tarjetas resumen -->
       <div class="row">
+        <!-- Ventas -->
         <div class="col-lg-4 col-sm-6">
           <div class="info-box7 l-bg-card2 order-info-box7">
             <div class="info-box7-block">
@@ -19,6 +20,7 @@
           </div>
         </div>
 
+        <!-- Clientes -->
         <div class="col-lg-4 col-sm-6">
           <div class="info-box7 l-bg-orange order-info-box7">
             <div class="info-box7-block">
@@ -30,6 +32,7 @@
           </div>
         </div>
 
+        <!-- Productos -->
         <div class="col-lg-4 col-sm-6">
           <div class="info-box7 l-bg-card1 order-info-box7">
             <div class="info-box7-block">
@@ -45,32 +48,35 @@
       <!-- Gráficos -->
       <div class="row dashboard-grid mt-4">
 
+        <!-- Top productos más vendidos -->
         <div class="col-lg-6 col-md-12">
           <div class="body">
-            <h4>Top Productos más vendidos</h4>
-            <div *ngIf="lineChartData.labels?.length">
+            <h4>Top productos más vendidos (torta)</h4>
+            <div *ngIf="pieChartDataMasVendidos.labels?.length">
               <canvas baseChart
-                      [data]="lineChartData"
-                      [options]="lineChartOptions"
-                      chartType="line">
+                      [data]="pieChartDataMasVendidos"
+                      [options]="pieChartOptions"
+                      [type]="'pie'">
               </canvas>
             </div>
           </div>
         </div>
 
+        <!-- Productos agotados -->
         <div class="col-lg-6 col-md-12">
           <div class="body">
             <h4>Productos agotados</h4>
-            <div *ngIf="lineChartDataAgotados.labels?.length">
-              <canvas baseChart
-                      [data]="lineChartDataAgotados"
-                      [options]="lineChartOptions"
-                      chartType="line">
-              </canvas>
-            </div>
+          <div *ngIf="barChartDataAgotados.labels?.length">
+  <canvas baseChart
+          [data]="barChartDataAgotados"
+          [options]="barChartOptionsAgotados"
+          chartType="'bar'">
+  </canvas>
+</div>
           </div>
         </div>
 
+        <!-- Ventas por vendedor -->
         <div class="col-lg-6 col-md-12">
           <div class="body">
             <h4>Ventas por vendedor</h4>
@@ -84,6 +90,7 @@
           </div>
         </div>
 
+        <!-- Venta por categoría -->
         <div class="col-lg-6 col-md-12">
           <div class="body">
             <h4>Venta de productos por categoría</h4>
@@ -97,7 +104,7 @@
           </div>
         </div>
 
-        <!-- 📊 Tableau: Predicción de ventas desde Tableau Public -->
+        <!-- Predicción de ventas (Tableau) -->
         <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="body">
@@ -107,51 +114,29 @@
           </div>
         </div>
 
-       
+        <!-- Predicción y comparativa -->
+        <div class="row">
+          <!-- Predicción de ventas -->
+          <div class="col-lg-6 col-md-12">
+            <div class="card">
+              <div class="body">
+                <app-grafico-prediccion></app-grafico-prediccion>
+              </div>
+            </div>
+          </div>
 
-  <!-- Predicción de ventas internas con Chart.js y Comparativa mensual lado a lado-->
- <div class="row"> 
-  <!-- Predicción de ventas -->
-  <!-- <div class="col-lg-6 col-md-12">
-    <div class="card">
-      <div class="body">
-        <h4 class="text-center">Predicción de ventas mensuales</h4>
-        <div *ngIf="lineChartDataPrediccion?.labels?.length">
-          <canvas baseChart
-                  [data]="lineChartDataPrediccion"
-                  [options]="lineChartOptionsPrediccion"
-                  chartType="line">
-          </canvas>
-        </div>
-      </div>
-    </div>
-  </div> -->
-<!-- Predicción de ventas (con Chart.js standalone) -->
-<div class="col-lg-6 col-md-12">
-  <div class="card">
-    <div class="body">
-      <app-grafico-prediccion></app-grafico-prediccion>
-    </div>
-  </div>
-</div>
+          <!-- Comparativa mensual -->
+          <div class="col-lg-6 col-md-12">
+            <div class="card">
+              <div class="body">
+                <h5 class="text-center mb-2">Comparativa de ventas: Mes actual vs anterior</h5>
+                <app-grafico-comparativa></app-grafico-comparativa>
+              </div>
+            </div>
+          </div>
+        </div> <!-- Fin row interna -->
 
-
-
-
-
-  <!-- Comparativa mensual -->
- <div class="col-lg-6 col-md-12">
-  <div class="card">
-    <div class="body">
-      <h5 class="text-center mb-2">Comparativa de ventas: Mes actual vs anterior</h5>
-      <app-grafico-comparativa></app-grafico-comparativa>
-    </div>
-  </div>
-</div>
-</div>
-
-
-      </div> <!-- Fin row -->
-    </div>
-  </div>
+      </div> <!-- Fin dashboard-grid -->
+    </div> <!-- Fin container-fluid -->
+  </div> <!-- Fin content-block -->
 </section>
