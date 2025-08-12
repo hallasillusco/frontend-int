@@ -9,7 +9,125 @@
 canvas {
   width: 100% !important;
   height: auto !important;
-}
-canvas {
   max-height: 300px;
+}
+
+.info-box7 {
+  height: 70px !important;
+  padding: 10px !important;
+  font-size: 0.95rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-box7-block {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-box7 h2 {
+  font-size: 1.5rem !important;
+  margin: 0;
+}
+
+.info-box7 h4 {
+  font-size: 1rem !important;
+  margin-bottom: 0.5rem;
+}
+
+.grafico-titulo {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #2f2f2f;
+}
+
+.grafico-subtitulo {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.grafico-torta-grande {
+  height: 280px !important;
+  max-height: 280px !important;
+  width: 100% !important;
+}
+
+.torta-contenedor {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  height: 350px;
+  overflow: hidden;
+}
+
+.leyenda-torta {
+  flex: 1;
+  max-height: 100%;
+  overflow-y: auto;
+  font-size: 0.65rem;
+  line-height: 1rem;
+}
+
+.leyenda-torta ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leyenda-torta li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+.color-caja {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  border-radius: 2px;
+}
+
+.grafico-torta {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.btn-descargar {
+  font-size: 0.6rem;
+  padding: 4px 10px;
+  margin-top: 6px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-descargar:hover {
+  background-color: #357ac9;
+}
+
+.btn-descargar .icono {
+  font-size: 0.8rem;
+  line-height: 1;
 }

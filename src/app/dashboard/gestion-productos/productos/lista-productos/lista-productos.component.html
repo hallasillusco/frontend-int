@@ -70,13 +70,13 @@
                     <th mat-header-cell *matHeaderCellDef> Precio</th>
                     <td mat-cell *matCellDef="let element">
                       <ng-container *ngIf="element?.descuento > 0 && element?.descuento != null ; else noDiscount">
-                        <span class="tp-product-price-2 old-price">${{ element?.precio_unit| number:'.2-2' }}</span>
+                        <span class="tp-product-price-2 old-price">Bs{{ element?.precio_unit| number:'.2-2' }}</span>
                         <span class="tp-product-price-2 new-price">
                           ${{ element?.precio_desc| number: '.2-2' }}
                         </span>
                       </ng-container>
                       <ng-template #noDiscount>
-                        <span class="tp-product-price-2 new-price">${{ element?.precio_unit| number:'.2-2' }}</span>
+                        <span class="tp-product-price-2 new-price">Bs{{ element?.precio_unit| number:'.2-2' }}</span>
                       </ng-template>
                      </td>
                   </ng-container>

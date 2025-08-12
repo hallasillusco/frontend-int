@@ -55,7 +55,7 @@
                 </ng-container>
                     <ng-container matColumnDef="Usuario">
                       <th mat-header-cell *matHeaderCellDef> Vendedor</th>
-                      <td mat-cell *matCellDef="let element"> {{element.usuario.nombre_completo}} </td>
+                      <td mat-cell *matCellDef="let element"> {{element.usuario?.nombre_completo}} </td>
                     </ng-container>
                     <ng-container matColumnDef="Cliente">
                       <th mat-header-cell *matHeaderCellDef> Cliente</th>

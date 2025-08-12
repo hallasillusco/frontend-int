@@ -20,7 +20,7 @@ export class GraficoTableauComponent implements AfterViewInit {
     const viz = this.renderer.createElement('object');
     viz.className = 'tableauViz';
     viz.setAttribute('width', '100%');
-    viz.setAttribute('height', '600');
+    viz.setAttribute('height', '360');
     viz.innerHTML = `
       <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
       <param name='embed_code_version' value='3' />

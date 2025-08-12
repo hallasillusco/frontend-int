@@ -48,43 +48,66 @@
       <!-- Gráficos -->
       <div class="row dashboard-grid mt-4">
 
-        <!-- Top productos más vendidos -->
-        <div class="col-lg-6 col-md-12">
-          <div class="body">
-            <h4>Top productos más vendidos (torta)</h4>
-            <div *ngIf="pieChartDataMasVendidos.labels?.length">
-              <canvas baseChart
-                      [data]="pieChartDataMasVendidos"
-                      [options]="pieChartOptions"
-                      [type]="'pie'">
-              </canvas>
-            </div>
-          </div>
-        </div>
+     <!-- Top productos más vendidos -->
+<div class="col-lg-6 col-md-12">
+  <div class="body">
+    <h4>Top productos más vendidos (torta)</h4>
+    <div #tortaBloque class="torta-contenedor" *ngIf="pieChartDataMasVendidos.labels?.length">
+      <div class="leyenda-torta">
+        <ul>
+          <li *ngFor="let label of pieChartDataMasVendidos.labels; let i = index">
+            <span class="color-caja" [ngStyle]="{'background-color': pieChartDataMasVendidos.datasets[0].backgroundColor[i]}"></span>
+            {{ label }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="grafico-torta">
+        <canvas #tortaCanvas
+                baseChart
+                class="grafico-torta-grande"
+                [data]="pieChartDataMasVendidos"
+                [options]="pieChartOptions"
+                [type]="'pie'">
+        </canvas>
+
+        <button class="btn-descargar mt-2" (click)="exportarBloqueComoImagen(tortaBloque)">
+          <span class="icono">📥</span> 
+        </button>
+
+        <button class="btn-descargar mt-1" (click)="exportarBloqueComoPDF(tortaBloque)">
+          <span class="icono">📄</span> <h Descargar imagen></h>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
         <!-- Productos agotados -->
         <div class="col-lg-6 col-md-12">
           <div class="body">
             <h4>Productos agotados</h4>
-          <div *ngIf="barChartDataAgotados.labels?.length">
-  <canvas baseChart
-          [data]="barChartDataAgotados"
-          [options]="barChartOptionsAgotados"
-          chartType="'bar'">
-  </canvas>
-</div>
+            <div *ngIf="barChartDataAgotados.labels?.length">
+              <canvas baseChart
+                      [data]="barChartDataAgotados"
+                      [options]="barChartOptionsAgotados"
+                      chartType="'bar'">
+              </canvas>
+            </div>
           </div>
         </div>
 
         <!-- Ventas por vendedor -->
         <div class="col-lg-6 col-md-12">
           <div class="body">
-            <h4>Ventas por vendedor</h4>
-            <div *ngIf="lineChartDataVentas.labels?.length">
+            <h4 class="grafico-titulo">Ventas por vendedor</h4>
+            <p class="grafico-subtitulo">Comparativa de ventas individuales por usuario</p>
+            <div *ngIf="barChartDataVentas.labels?.length">
               <canvas baseChart
-                      [data]="lineChartDataVentas"
-                      [options]="lineChartOptions"
-                      chartType="line">
+                      [data]="barChartDataVentas"
+                      [options]="barChartOptionsVent"
+                      chartType="bar">
               </canvas>
             </div>
           </div>
@@ -93,12 +116,13 @@
         <!-- Venta por categoría -->
         <div class="col-lg-6 col-md-12">
           <div class="body">
-            <h4>Venta de productos por categoría</h4>
+            <h4 class="grafico-titulo">Venta de productos por categoría</h4>
+            <p class="grafico-subtitulo">Resumen de ventas agrupadas por categoría</p>
             <div *ngIf="lineChartDataCategorias.labels?.length">
               <canvas baseChart
                       [data]="lineChartDataCategorias"
                       [options]="lineChartOptions"
-                      chartType="line">
+                      chartType="bar">
               </canvas>
             </div>
           </div>

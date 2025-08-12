@@ -8,6 +8,9 @@ import { SharedModule } from '../../website-core/shared/shared.module';
 import { GraficoTableauComponent } from '../grafico-tableau/grafico-tableau.component';
 import { GraficoComparativaComponent } from '../grafico-comparativa/grafico-comparativa.component';
 import { GraficoPrediccionComponent } from '../grafico-prediccion/grafico-prediccion.component';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
+
 
 @Component({
   selector: 'app-main',
@@ -29,9 +32,10 @@ export class MainComponent implements OnInit {
   datos: any;
 
   public pieChartOptions: ChartOptions<'pie'> = {
-    responsive: true,
+    responsive: false,
+    maintainAspectRatio: false,
     plugins: {
-      legend: { position: 'top' },
+      legend: { display: false },
       title: { display: true, text: 'Top productos más vendidos' }
     }
   };
@@ -88,16 +92,27 @@ export class MainComponent implements OnInit {
     }
   };
 
-  public lineChartDataVentas: ChartData<'line'> = {
+  public barChartOptionsVent: ChartOptions<'bar'> = {
+    responsive: true,
+    plugins: {
+      legend: { position: 'top' },
+      title: { display: true, text: 'Ventas por vendedor' }
+    },
+    indexAxis: 'y',
+    scales: {
+      x: { beginAtZero: true }
+    }
+  };
+
+  public barChartDataVentas: ChartData<'bar'> = {
     labels: [],
     datasets: [
       {
         data: [],
         label: 'Vendedores',
-        backgroundColor: [],
-        borderColor: [],
-        borderWidth: 1,
-        fill: false
+        backgroundColor: this.getBackgroundColor(),
+        borderColor: this.getBorderColor(),
+        borderWidth: 1
       }
     ]
   };
@@ -165,7 +180,6 @@ export class MainComponent implements OnInit {
 
   obtenerDatosGraficaAgotados() {
     this.reporteService.getDatosAgotados().subscribe(data => {
-      console.log('Agotados:', data);
       this.barChartDataAgotados.labels = data.labels;
       this.barChartDataAgotados.datasets[0].data = data.data.map(Number);
       this.barChartDataAgotados = { ...this.barChartDataAgotados };
@@ -173,11 +187,10 @@ export class MainComponent implements OnInit {
   }
 
   obtenerDatosGraficaVentas() {
-    this.lineChartDataVentas.datasets[0].backgroundColor = this.getBackgroundColor();
-    this.lineChartDataVentas.datasets[0].borderColor = this.getBorderColor();
     this.reporteService.getDatosVentas().subscribe(data => {
-      this.lineChartDataVentas.labels = data.labels;
-      this.lineChartDataVentas.datasets[0].data = data.data.map(Number);
+      this.barChartDataVentas.labels = data.labels;
+      this.barChartDataVentas.datasets[0].data = data.data.map(Number);
+      this.barChartDataVentas = { ...this.barChartDataVentas };
     });
   }
 
@@ -205,18 +218,57 @@ export class MainComponent implements OnInit {
 
   getBackgroundColor() {
     return [
-      'rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)',
-      'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)',
-      'rgba(0, 255, 127, 0.2)', 'rgba(255, 69, 0, 0.2)', 'rgba(50, 205, 50, 0.2)'
+      '#FF6384', '#36A2EB', '#FFCE56',
+      '#4BC0C0', '#9966FF', '#FF9F40',
+      '#66FF66', '#FF6666', '#66B2FF'
     ];
   }
 
   getBorderColor() {
     return [
-      'rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)',
-      'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)',
-      'rgba(0, 255, 127, 1)', 'rgba(255, 69, 0, 1)', 'rgba(50, 205, 50, 1)'
+      '#FF6384', '#36A2EB', '#FFCE56',
+      '#4BC0C0', '#9966FF', '#FF9F40',
+      '#66FF66', '#FF6666', '#66B2FF'
     ];
   }
-}
 
+  downloadTortaImage(canvas: HTMLCanvasElement) {
+    const enlace = document.createElement('a');
+    enlace.href = canvas.toDataURL('image/png');
+    enlace.download = 'grafico_torta.png';
+    enlace.click();
+  }
+
+  exportarTortaComoPDF(canvas: HTMLCanvasElement) {
+    html2canvas(canvas).then(canvasExportado => {
+      const imgData = canvasExportado.toDataURL('image/png');
+      const pdf = new jsPDF('landscape', 'mm', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth - 20, pdfHeight);
+      pdf.save('grafico_torta.pdf');
+    });
+  }
+
+  exportarBloqueComoImagen(elemento: HTMLElement) {
+    html2canvas(elemento).then(canvas => {
+      const enlace = document.createElement('a');
+      enlace.href = canvas.toDataURL('image/png');
+      enlace.download = 'grafico_torta_completo.png';
+      enlace.click();
+    });
+  }
+
+  exportarBloqueComoPDF(elemento: HTMLElement) {
+    html2canvas(elemento).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(imgData, 'PNG', 0, 10, pdfWidth, pdfHeight);
+      pdf.save('grafico_torta_completo.pdf');
+    });
+  }
+}
